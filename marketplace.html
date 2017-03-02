@@ -83,11 +83,34 @@ var validicsummaryrequest = "https://api2.stage.validic.com/users/MarcSebes/summ
 
 
 $.get( validicsummaryrequest, function( data ) {
-		console.log(data);
+		//console.log(data);
+		console.log(data.data["0"].metrics);
+		donkey = data.data["0"].metrics;
+		//mySteps = data.data["0"].metrics[4].value;
 
-		mySteps = data.data["0"].metrics[4].value;
+		//console.log(mySteps);
+//console.log(Array.isArray(donkey));
 
-		console.log(mysteps);
+function getValuebyType(type) {
+  return donkey.filter(
+      function(donkey){ return donkey.type == type }
+  );
+}
+
+var objSteps = getValuebyType('steps');
+var mySteps = objSteps[0].value;
+
+var objActiveTime = getValuebyType('active_duration');
+var myActiveTime = objActiveTime[0].value;
+console.log(mySteps);
+console.log(myActiveTime);
+
+
+
+
+
+
+
 		
 	//	myDistance = Math.round((data.routine[0].distance * 0.00062137)*10)/10;
 	//	myCaloriesBurned = data.routine[0].calories_burned;
