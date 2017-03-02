@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>The Bill Murray Challenge - Leaderboard</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/stupidtable.js"></script>
+		  <script>
+$(document).ready(function() 
+    { 
+        
+var $table = $("#leadertable").stupidtable();
+var $th_to_sort = $table.find("thSteps").eq(0);
+alert($table.find("thSteps").eq(0).innerHTML);
+$th_to_sort.stupidsort('desc');
+
+    } 
+); 
+
+
+  </script>
+
+		<style>
+th {cursor:pointer;}
+
+
+
+		</style>
+
+
+	</head>
+	<body>
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<h1>Leaderboard.</h1>
+							</header>
+							<section id="sectionleaderboard" style="margin:2em;">
+									<table id="leadertable" style="width:50%">
+										<thead>
+										<tr>
+											<th data-sort="string" id="thValidicID">ValidicID</th>
+											<th data-sort="int" id="thSteps">Steps</th>
+										</tr>
+										</thead>
+									<tbody>
+									</tbody>
+									</table>
+							</section>
+							<section>
+								<div id="chart_div"></div>
+								<div id="jsonwrapper">
+									<br/>
+									<pre id="jsonresponse"></pre>
+								</div>
+
+							</section>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							
+							
+							<ul class="copyright">
+								<li>&copy; Validic. All rights reserved</li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+	<!--		
+			<script src="assets/js/validic.js"></script>
+-->
+<!-- start paste -->
+<script>
+//Get all users
+
+
+
+
+
+// aaaa
+
+var user_array;
+
+
+  $.ajax({
+    type: "GET",
+    url: "https://api.validic.com/v1/organizations/52be9b5be5af47a92d00001b/users.json?access_token=114283725495bd1a5770497b65d86acf716fee77aac35e8915cbcd492eced05e&limit=500",
+    dataType: "json",
+    success: function (data) {
+       user_array = data;
+       console.log(user_array);
+       console.log(user_array.users[0].uid);
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+//Determine the Correct Request
+ //Timzone offset function
+    function formatLocalDate(start) {
+    var now = new Date(),
+        tzo = -now.getTimezoneOffset(),
+        dif = tzo >= 0 ? '+' : '-',
+        pad = function(num) {
+            var norm = Math.abs(Math.floor(num));
+            return (norm < 10 ? '0' : '') + norm;
+        };
+
+
+
+    switch(start){
+    	case "start":
+		    var someDate = new Date();
+			var numberOfDaysToSubtract = 0;
+			someDate.setDate(someDate.getDate() - numberOfDaysToSubtract); 
+		    return someDate.getFullYear() 
+		        + '-' + pad(someDate.getMonth()+1)
+		        + '-' + pad(someDate.getDate())
+		        + 'T' + pad("00")
+		        + ':' + pad("00") 
+		        + ':' + pad("00") 
+		        + dif + pad(tzo / 60) 
+		        + ':' + pad(tzo % 60);
+	        break;
+        case "end":
+			return now.getFullYear() 
+		        + '-' + pad(now.getMonth()+1)
+		        + '-' + pad(now.getDate())
+		        + 'T' + pad("23")
+		        + ':' + pad("59") 
+		        + ':' + pad("59") 
+		        + dif + pad(tzo / 60) 
+		        + ':' + pad(tzo % 60);    
+	        break;   	
+        default:
+			 return now.getFullYear() 
+		        + '-' + pad(now.getMonth()+1)
+		        + '-' + pad(now.getDate())
+				+ 'T' + pad(now.getHours())
+		        + ':' + pad(now.getMinutes()) 
+		        + ':' + pad(now.getSeconds()) 
+		        + dif + pad(tzo / 60) 
+		        + ':' + pad(tzo % 60);  
+	    }
+
+}
+
+    //Determine the Date 
+    var date_today = new Date();
+    var request_start_date = formatLocalDate("start");
+    var request_end_date = formatLocalDate("end");
+
+    //Get Parameter Values from Query String 
+    var getQueryString = function ( field, url ) {
+        var href = url ? url : window.location.href;
+        var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+        var string = reg.exec(href);
+        return string ? string[1] : null;
+    };
+    
+
+
+    //Construct the Validic Request URLs
+    var validicrequestbase = "https://api.validic.com/v1/organizations/52be9b5be5af47a92d00001b/routine.json?access_token=114283725495bd1a5770497b65d86acf716fee77aac35e8915cbcd492eced05e";
+    
+    var validicrequestparams = "&dashboard=1&start_date="+request_start_date+"&end_date="+request_end_date;  
+    var validicrequest = validicrequestbase + validicrequestparams
+    console.log(validicrequest);
+   
+    //Now Make the  Request via jQuery
+
+
+
+
+
+//Output Logic
+function output(inp, elementid) {
+    document.getElementById(elementid).innerHTML = inp;
+}
+
+function syntaxHighlight(json) {
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
+
+var obj = {a:1, 'b':'foo', c:[false,'false',null, 'null', {d:{e:1.3e5,f:'1.3e5'}}]};
+
+
+
+	$.ajax({
+		url: validicrequest,
+		type: 'GET',
+		beforeSend: function (xhr) {
+		    xhr.setRequestHeader('Validic-Version', '2016-03-01');
+		},
+		data: {},
+		success: function (data) { 
+		// var str = JSON.stringify(data, undefined, 4);
+		 //  output(syntaxHighlight(str),"jsonresponse");
+
+		//table create
+		console.log(data);
+		//second query
+
+
+
+
+
+
+    	var tr;
+    	for (var i = 0; i < data.routine.length; i++) {
+			if(data.routine[i].steps>0) {
+				tr = $('<tr/>');
+		        tr.append("<td>" + data.routine[i].user_id + "</td>");
+		        tr.append("<td>" + data.routine[i].steps + "</td>");
+		        $('#leadertable').append(tr);
+		    }
+    	}
+
+
+ 
+     
+
+
+
+
+		},
+		error: function () { },
+	});
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+	</body>
+</html>

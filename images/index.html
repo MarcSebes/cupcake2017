@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>The Bill Murray Challenge</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<h1>Cupcake.</h1>
+							</header>
+							<section class="tiles">
+								<article class="style1">
+									<span class="image">
+										<img src="images/pic01.jpg" alt="" />
+									</span>
+									<a href="generic.html">
+										<h2><span id="article1text">Steps Not Available</span></h2>
+										<div class="content" id="article1content">
+											<p>Why you no take steps?</p>
+										</div>
+									</a>
+								</article>
+								<article class="style2">
+									<span class="image">
+										<img src="images/pic02.jpg" alt="" />
+									</span>
+									<a href="generic.html">
+										<h2><span id="article2text">Active Time Not Available</span></h2>
+										<div class="content" id="article2content">
+											<p>Typing does not count as active.</p>
+										</div>
+									</a>
+								</article>
+								<article class="style3">
+									<span class="image">
+										<img src="images/pic03.jpg" alt="" />
+									</span>
+									<a href="generic.html">
+										<h2><span id="article3text">Weight is Not Available</span></h2>
+										<div class="content" id="article3content">
+											<p>Weight is relative.</p>
+										</div>
+									</a>
+								</article>
+
+
+							</section>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							
+							
+							<ul class="copyright">
+								<li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+			<!-- Move this to a file later -->
+			<script>
+
+	//Variables to hold data
+	var mySteps = "";
+	var myActiveTime = "";
+	var myDistance = "";
+	var myCalories = "";
+	var myWeight = "";
+
+    //Get Parameter Values from Query String 
+    var getQueryString = function ( field, url ) {
+        var href = url ? url : window.location.href;
+        var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+        var string = reg.exec(href);
+        return string ? string[1] : null;
+    };
+
+    //Get the User from the Query String Parameter
+    var authentication_token = getQueryString('authentication_token');
+
+    //Construct the Validic Request URLs
+    var validicrequestbase = "https://api.validic.com/v1/";
+    var validicrequestuser = "authentication_token=" + authentication_token;
+    var validicrequestparams = "&expanded=1&dashboard=1";  //hard-coded for now
+    
+    var validicroutinerequest = validicrequestbase + "routine.json?" + validicrequestuser + validicrequestparams;
+    var validicweightrequest = validicrequestbase + "weight.json?" + validicrequestuser + validicrequestparams;
+
+    //Make the Routine Request via jQuery
+	$.get( validicroutinerequest, function( data ) {
+	console.log(data);
+
+	mySteps = data.routine[0].steps;
+	if(data.routine[0].source = "fitbit") {
+		myActiveTime = data.routine[0].minutes_fairly_active+data.routine[0].minutes_very_active;
+	};
+	myDistance = Math.round((data.routine[0].distance * 0.00062137)*10)/10;
+
+
+	document.getElementById("article1text").innerHTML = mySteps + " steps";
+	document.getElementById("article1content").innerHTML = "That's " + myDistance + " miles!";
+	if(myActiveTime) {
+		document.getElementById("article2text").innerHTML = myActiveTime + " active minutes";
+	};
+
+
+	}, "json" );
+
+ 	//Make the Weight Request via jQuery
+	$.get( validicweightrequest, function( data ) {
+	console.log(data);
+
+	myWeight = Math.round((data.weight[0].weight/0.45359237)*10)/10;
+
+	if(myWeight) {
+	document.getElementById("article3text").innerHTML = myWeight + " lbs";
+	};
+	
+	document.getElementById("article3content").innerHTML = "You phat!";
+	
+
+	}, "json" );
+
+
+
+
+
+			</script>
+
+	</body>
+</html>

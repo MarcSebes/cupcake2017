@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>The Bill Murray Challenge</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<style>
+			.marketplace_app {
+				text-align:center;
+				margin-bottom:1em;
+				border: 0px solid black;
+				padding:1em;
+				border-radius: 10px;
+				border: 3px solid #ccc;
+			}
+
+			.marketplace_app_image {
+				height: 100px;
+			}
+
+
+
+		</style>
+
+	</head>
+	<body>
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<h1>Cutie Pie.</h1>
+							</header>
+							<section>
+								<a href="index.html">Go to Dashboard</a>
+							</section>
+
+							<section class="tiles" id="validic-marketplace">
+								
+							</section>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							
+							
+							<ul class="copyright">
+								<li>&copy; Validic. All rights reserved</li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+			<script src="assets/js/validic-utils.js"></script>
+	<!--		
+			<script src="assets/js/validic.js"></script>
+-->
+<!-- start paste -->
+<script>
+
+
+    //Determine the Date 
+    var date_today = new Date();
+    var request_start_date = formatLocalDate("start");
+    var request_end_date = formatLocalDate("end");
+
+
+    //Get the User from the Query String Parameter
+    var authentication_token = getQueryString('token');
+    if (authentication_token == null) {
+			alert("I don't know you.  Please provide a token in the header.");
+
+    } 
+    //Get the Request Type
+    var validicrequesttype = "apps";
+
+
+    //Construct the Validic Request URLs
+    var validicrequestbase = "https://api.validic.com/v1/" + validicrequesttype + ".json?";
+    var validicrequestuser = "authentication_token=" + authentication_token;
+    var validicrequestparams = "&dashboard=1" + "&access_token=114283725495bd1a5770497b65d86acf716fee77aac35e8915cbcd492eced05e";
+    var validicrequest = validicrequestbase + validicrequestuser + validicrequestparams;
+    console.log(validicrequest);
+   
+    //Now Make the  Request via jQuery
+
+	$.ajax({
+		url: validicrequest,
+		type: 'GET',
+		beforeSend: function (xhr) {
+		    xhr.setRequestHeader('Validic-Version', '2016-03-01');
+		},
+		data: {},
+		success: function (data) { 
+			var live_apps = ["adidas","body_trace_bpm","body_trace_scale","dailymile","epson_pulsense","fatsecret","fitbug","fitbit","garmin_connect","higi","ihealth","jawbone_up","lifefitness","lumo","mapmyfitness","microsoft","misfit","movable","movesapp","my_fitness_pal","myglucohealth","omron","polar","precor","managebgl","qardio","healthraph","samsung_gear","sony","strava","suunto","telcare","tomtom","under_armour","vitadock","withings"];
+		    //iterate through all of the marketplace apps
+		    $.each(data.apps, function(key, value) {
+		    //for each app, write something to the page 
+		     if(live_apps.indexOf(data.apps[key].subname)>-1) {
+				
+				var appname = data.apps[key].name;
+				var appsyncurl = data.apps[key].sync_url + '&redirect_uri=' + window.location.href;
+				var appunsyncurl = data.apps[key].unsync_url + '&redirect_uri=' + window.location.href;
+				var sync_status = data.apps[key].synced;
+
+			
+			//build the app display
+
+			var appbase = '<article><div class="marketplace_app">'
+			var appimage = '<img class="marketplace_app_image" src="https://app.validic.com/' + data.apps[key].logo_url + '" />';
+			var apptitle = '<br/><div style="height:55px;padding: 0 25px 0 25px;"><h3 style="margin-bottom:0">' + appname + '</h3></div><br/>';
+			var appbutton = '';
+
+			if(sync_status == false) {
+				appbutton = '<a style="all:unset;" href="' + appsyncurl + '"><input type="button" value="Connect" class="special" id="app' + key + '"/></a>'
+
+			} else  {
+appbutton = '<a style="all:unset;" href="' + appunsyncurl + '"><input type="button" value="Disconnect" class="special" id="app' + key + '"/></a>'
+
+
+			}
+
+
+            	$('#validic-marketplace').append(appbase + appimage + apptitle + appbutton + '</div></article>');
+
+
+            }
+
+
+
+
+
+            	//$.each(data.apps[key], function(key2, value2)
+            	//{
+            		
+            		//$('#validic-marketplace').append(key2 + ': ' + value2 + "<br/>");
+            	//}
+            	//)
+
+            	//console.log(key + '=' + value);
+            });  
+            //done iterating through all the marketplace apps
+
+		   console.log(data);
+
+		},
+		error: function () { },
+	});
+
+
+</script>
+
+
+	</body>
+</html>

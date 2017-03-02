@@ -1,0 +1,2 @@
+"adidas","body_trace_bpm","body_trace_scale","dailymile","epson_pulsense","fatsecret","fitbug","fitbit","garmin_connect","higi","ihealth","jawbone_up","lifefitness","lumo","mapmyfitness","microsoft","misfit","movable","movesapp","my_fitness_pal","myglucohealth","omron","polar","precor","managebgl","qardio","healthraph","samsung_gear","sony","strava","suunto","telcare","tomtom","under_armour","vitadock","withings"
+

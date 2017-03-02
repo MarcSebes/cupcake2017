@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>The Bill Murray Challenge</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<style>
+		pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: black; }
+
+		</style>
+
+
+	</head>
+	<body>
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<h1>More Cupcakes.</h1>
+							</header>
+							<section>
+								<div id="chart_div"></div>
+								<div id="jsonwrapper">
+									<br/>
+									<pre id="jsonresponse"></pre>
+								</div>
+
+							</section>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							
+							
+							<ul class="copyright">
+								<li>&copy; Validic. All rights reserved</li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+	<!--		
+			<script src="assets/js/validic.js"></script>
+-->
+<!-- start paste -->
+<script>
+
+//Determine the Correct Request
+ //Timzone offset function
+    function formatLocalDate(start) {
+    var now = new Date(),
+        tzo = -now.getTimezoneOffset(),
+        dif = tzo >= 0 ? '+' : '-',
+        pad = function(num) {
+            var norm = Math.abs(Math.floor(num));
+            return (norm < 10 ? '0' : '') + norm;
+        };
+
+
+
+    switch(start){
+    	case "start":
+		    var someDate = new Date();
+			var numberOfDaysToSubtract = 14;
+			someDate.setDate(someDate.getDate() - numberOfDaysToSubtract); 
+		    return someDate.getFullYear() 
+		        + '-' + pad(someDate.getMonth()+1)
+		        + '-' + pad(someDate.getDate())
+		        + 'T' + pad("00")
+		        + ':' + pad("00") 
+		        + ':' + pad("00") 
+		        + dif + pad(tzo / 60) 
+		        + ':' + pad(tzo % 60);
+	        break;
+        case "end":
+			return now.getFullYear() 
+		        + '-' + pad(now.getMonth()+1)
+		        + '-' + pad(now.getDate())
+		        + 'T' + pad("23")
+		        + ':' + pad("59") 
+		        + ':' + pad("59") 
+		        + dif + pad(tzo / 60) 
+		        + ':' + pad(tzo % 60);    
+	        break;   	
+        default:
+			 return now.getFullYear() 
+		        + '-' + pad(now.getMonth()+1)
+		        + '-' + pad(now.getDate())
+				+ 'T' + pad(now.getHours())
+		        + ':' + pad(now.getMinutes()) 
+		        + ':' + pad(now.getSeconds()) 
+		        + dif + pad(tzo / 60) 
+		        + ':' + pad(tzo % 60);  
+	    }
+
+}
+
+    //Determine the Date 
+    var date_today = new Date();
+    var request_start_date = formatLocalDate("start");
+    var request_end_date = formatLocalDate("end");
+
+    //Get Parameter Values from Query String 
+    var getQueryString = function ( field, url ) {
+        var href = url ? url : window.location.href;
+        var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
+        var string = reg.exec(href);
+        return string ? string[1] : null;
+    };
+    
+
+    //Get the User from the Query String Parameter
+    var authentication_token = getQueryString('authentication_token');
+    if (authentication_token == null) {
+			alert("I don't know you.  Please provide an authentication_token in the header.");
+
+    } 
+    //Get the Request Type from the Query String Parameter
+    var validicrequesttype = getQueryString('type');
+    if (validicrequesttype == null) {validicrequesttype="routine"};
+
+
+    //Construct the Validic Request URLs
+    var validicrequestbase = "https://api.validic.com/v1/" + validicrequesttype + ".json?";
+    var validicrequestuser = "authentication_token=" + authentication_token;
+    var validicrequestparams = "&expanded=1&dashboard=1&start_date="+request_start_date+"&end_date="+request_end_date;  
+    var validicrequest = validicrequestbase + validicrequestuser + validicrequestparams
+    console.log(validicrequest);
+   
+    //Now Make the  Request via jQuery
+
+
+
+
+
+//Output Logic
+function output(inp, elementid) {
+    document.getElementById(elementid).innerHTML = inp;
+}
+
+function syntaxHighlight(json) {
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+        var cls = 'number';
+        if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+                cls = 'key';
+            } else {
+                cls = 'string';
+            }
+        } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+        } else if (/null/.test(match)) {
+            cls = 'null';
+        }
+        return '<span class="' + cls + '">' + match + '</span>';
+    });
+}
+
+var obj = {a:1, 'b':'foo', c:[false,'false',null, 'null', {d:{e:1.3e5,f:'1.3e5'}}]};
+
+
+
+	$.ajax({
+		url: validicrequest,
+		type: 'GET',
+		beforeSend: function (xhr) {
+		    xhr.setRequestHeader('Validic-Version', '2016-03-01');
+		},
+		data: {},
+		success: function (data) { 
+		 var str = JSON.stringify(data, undefined, 4);
+		   output(syntaxHighlight(str),"jsonresponse");
+
+		},
+		error: function () { },
+	});
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</body>
+</html>
