@@ -78,12 +78,23 @@
 
     } 
 
+    //Get the Date from the Query String Parameter
+    var querydate = getQueryString('date');
+    if (querydate == null) {
+    		var d = new Date();
+			//querydate=d.getFullYear() & "-" & ("0" + (d.getMonth() + 1)).slice(-2) & "-" & ("0" + d.getDate()).slice(-2);
+    		console.log("Query Date:");
+    		var queryyear = d.getFullYear()
+    		var querymonth = ("0" + (d.getMonth() + 1)).slice(-2);
+    		var queryday = ("0" + d.getDate()).slice(-2);
+    		querydate = [queryyear,querymonth,queryday].join('-');
+}
     //setup query 
     	var validicrequestbase = "https://api2.stage.validic.com/users/";
     	var validicrequestuser = user;
-  
+  		var validicrequestdate = "&date=" + querydate;
     	var validicrequestcreds = "?token=abeed1ffe4f14f3fb7d9bcb4928c72b4";
-		var validicsummaryrequest = validicrequestbase + validicrequestuser + "/summaries" + validicrequestcreds + "&date=2017-03-01";
+		var validicsummaryrequest = validicrequestbase + validicrequestuser + "/summaries" + validicrequestcreds + validicrequestdate;
 
 
 	//Get Summary Data
@@ -125,22 +136,69 @@
  	
 
 	//Get Weight Data
-	var validicweightrequest = validicrequestbase + validicrequestuser + "/measurements" + validicrequestcreds + "&date=2017-02-27";
+	var validicweightrequest = validicrequestbase + validicrequestuser + "/measurements" + validicrequestcreds + validicrequestdate;
 
 		$.get( validicweightrequest, function( data ) {
 				console.log(data);
+				if (data.data["0"]) {
+					donkey = data.data["0"].metrics;
+				
+					function getValuebyType(type) {
+					  return donkey.filter(
+					      function(donkey){ return donkey.type == type }
+					  );
+					}
+
+					var objWeight = getValuebyType('body_weight');
+					myWeight = Math.round(objWeight[0].value * 2.20462262*10)/10;
+					document.getElementById("article3text").innerHTML = myWeight + " lbs";
+				}
+		}, "json" );
+
+
+	//Get Workouts Data
+	var validicworkoutrequest = validicrequestbase + validicrequestuser + "/workouts" + validicrequestcreds + validicrequestdate;
+
+		$.get( validicworkoutrequest, function( data ) {
+				console.log(data);
+				if (data.data["0"]) {
 				donkey = data.data["0"].metrics;
 
-		function getValuebyType(type) {
-		  return donkey.filter(
-		      function(donkey){ return donkey.type == type }
-		  );
-		}
+					function getValuebyType(type) {
+					  return donkey.filter(
+					      function(donkey){ return donkey.type == type }
+					  );
+					}
 
-		var objWeight = getValuebyType('body_weight');
-		myWeight = Math.round(objWeight[0].value * 2.20462262*10)/10;
-		document.getElementById("article3text").innerHTML = myWeight + " lbs";
-
+					var objDuration = getValuebyType('active_duration');
+					console.log("Duration object");
+					console.log(objDuration);
+					myDuration = objDuration[0].value;
+					switch (objDuration[0].unit) {
+					    case "ms":
+					        myDuration=myDuration/1000/60;
+					        break;
+					    case "s":
+					        myDuration=myDuration/60;
+					        break;
+					    case 2:
+					        day = "Tuesday";
+					        break;
+					    case 3:
+					        day = "Wednesday";
+					        break;
+					    case 4:
+					        day = "Thursday";
+					        break;
+					    case 5:
+					        day = "Friday";
+					        break;
+					    case 6:
+					        day = "Saturday";
+					}
+					console.log(myDuration);
+					document.getElementById("article4text").innerHTML = myDuration + " Minutes";
+				}
 		}, "json" );
 
 //hi marc
