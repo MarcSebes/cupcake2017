@@ -78,14 +78,15 @@
 
     } 
 
-
+    //setup query 
     	var validicrequestbase = "https://api2.stage.validic.com/users/";
     	var validicrequestuser = user;
-    	var validicrequestendpoint = "/summaries?"
-    	var validicrequestcreds = "token=abeed1ffe4f14f3fb7d9bcb4928c72b4";
-		var validicsummaryrequest = validicrequestbase + validicrequestuser + validicrequestendpoint + validicrequestcreds + "&date=2017-03-01";
+  
+    	var validicrequestcreds = "?token=abeed1ffe4f14f3fb7d9bcb4928c72b4";
+		var validicsummaryrequest = validicrequestbase + validicrequestuser + "/summaries" + validicrequestcreds + "&date=2017-03-01";
 
 
+	//Get Summary Data
 		$.get( validicsummaryrequest, function( data ) {
 				//console.log(data);
 				console.log(data.data["0"].metrics);
@@ -123,7 +124,23 @@
 
  	
 
-//set page links
-function detailnavigate(type) {
-	window.location.href = "details.html?type="+type+"&authentication_token="+authentication_token;
-}
+	//Get Weight Data
+	var validicweightrequest = validicrequestbase + validicrequestuser + "/measurements" + validicrequestcreds + "&date=2017-02-27";
+
+		$.get( validicweightrequest, function( data ) {
+				console.log(data);
+				donkey = data.data["0"].metrics;
+
+		function getValuebyType(type) {
+		  return donkey.filter(
+		      function(donkey){ return donkey.type == type }
+		  );
+		}
+
+		var objWeight = getValuebyType('body_weight');
+		myWeight = Math.round(objWeight[0].value * 2.20462262*10)/10;
+		document.getElementById("article3text").innerHTML = myWeight + " lbs";
+
+		}, "json" );
+
+
