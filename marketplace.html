@@ -85,7 +85,8 @@ var validicsummaryrequest = "https://api2.stage.validic.com/users/MarcSebes/summ
 $.get( validicsummaryrequest, function( data ) {
 		console.log(data);
 
-		mySteps = data[0].metrics[4].value;
+		mySteps = data.data["0"].metrics[4].value;
+
 		console.log(mysteps);
 		
 	//	myDistance = Math.round((data.routine[0].distance * 0.00062137)*10)/10;
