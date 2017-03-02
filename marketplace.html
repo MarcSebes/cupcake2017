@@ -78,7 +78,25 @@
 <!-- start paste -->
 <script>
 
+//start new
+var validicsummaryrequest = "https://api2.stage.validic.com/users/MarcSebes/summaries?token=abeed1ffe4f14f3fb7d9bcb4928c72b4&date=2017-03-01";
 
+
+$.get( validicsummaryrequest, function( data ) {
+		console.log(data);
+
+
+		};
+		}, "json" );
+
+
+
+
+
+
+//end new
+
+function oldstuff() {
     //Determine the Date 
     var date_today = new Date();
     var request_start_date = formatLocalDate("start");
@@ -88,7 +106,7 @@
     //Get the User from the Query String Parameter
     var authentication_token = getQueryString('token');
     if (authentication_token == null) {
-			alert("I don't know you.  Please provide a token in the header.");
+			//alert("I don't know you.  Please provide a token in the header.");
 
     } 
     //Get the Request Type
@@ -167,7 +185,7 @@ appbutton = '<a style="all:unset;" href="' + appunsyncurl + '"><input type="butt
 		error: function () { },
 	});
 
-
+}
 </script>
 
 
