@@ -82,13 +82,12 @@
     var querydate = getQueryString('date');
     if (querydate == null) {
     		var d = new Date();
-			//querydate=d.getFullYear() & "-" & ("0" + (d.getMonth() + 1)).slice(-2) & "-" & ("0" + d.getDate()).slice(-2);
-    		console.log("Query Date:");
     		var queryyear = d.getFullYear()
     		var querymonth = ("0" + (d.getMonth() + 1)).slice(-2);
     		var queryday = ("0" + d.getDate()).slice(-2);
     		querydate = [queryyear,querymonth,queryday].join('-');
-}
+    	}
+    console.log("Query Date Parameter: " + querydate )	
     //setup query 
     	var validicrequestbase = "https://api2.stage.validic.com/users/";
     	var validicrequestuser = user;
