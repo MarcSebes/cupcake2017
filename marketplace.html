@@ -85,6 +85,19 @@ var validicsummaryrequest = "https://api2.stage.validic.com/users/MarcSebes/summ
 $.get( validicsummaryrequest, function( data ) {
 		console.log(data);
 
+		mySteps = data[0].metrics[4].value;
+		console.log(mysteps);
+		
+	//	myDistance = Math.round((data.routine[0].distance * 0.00062137)*10)/10;
+	//	myCaloriesBurned = data.routine[0].calories_burned;
+
+
+	//	document.getElementById("article1text").innerHTML = mySteps + " steps";
+//		document.getElementById("article1content").innerHTML = "That's " + myDistance + " miles!" + "<br/>with " + myCaloriesBurned + " calories burned.";
+
+//		if(myActiveTime) {
+//			document.getElementById("article2text").innerHTML = myActiveTime + " active minutes";
+//		};
 		}, "json" );
 
 
