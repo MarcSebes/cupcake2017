@@ -104,11 +104,13 @@
 		var objSteps = getValuebyType('steps');
 		var objDistance = getValuebyType('distance');
 		var objActiveTime = getValuebyType('active_duration');
+		var objBMR = getValuebyType('basal_energy_burned');
+		var objenergy = getValuebyType('energy_burned');
 
 		mySteps = objSteps[0].value;
-		myActiveTime = objActiveTime[0].value / 60;
-		myDistance = objDistance[0].value;
-myCaloriesBurned = 42;
+		myActiveTime = Math.round(objActiveTime[0].value / 60);
+		myDistance = Math.round(objDistance[0].value);
+		myCaloriesBurned = Math.round(objBMR[0].value + objenergy[0].value);
 
 
 		document.getElementById("article1text").innerHTML = mySteps + " steps";
