@@ -167,24 +167,7 @@
 	var validicrequestuser = user;
 	var validicrequestdate = "&date=" + querydate;
 	var validicrequestcreds = "?token=abeed1ffe4f14f3fb7d9bcb4928c72b4";
-	switch (validicrequesttype) {
-					    case "routine":
-					        validicrequesttype="/summaries";
-					        break;
-					    case "weight":
-					        validicrequesttype="/measurements";
-					        break;
-					    case "fitness":
-					        validicrequesttype="/workouts";
-					        break;
-					    case "sleep":
-					        validicrequesttype="/sleep";
-					        break;
-					    case "nutrition":
-					        validicrequesttype="/nutrition";
-					        break;
-					}
-	var validicrequest = validicrequestbase + validicrequestuser + validicrequesttype + validicrequestcreds + validicrequestdate;
+	var validicrequest = validicrequestbase + validicrequestuser + "/" + validicrequesttype + validicrequestcreds + validicrequestdate;
 
 
     console.log(validicrequest);
