@@ -233,3 +233,4 @@ function detailnavigate(type) {
 	window.location.href = "details.html?type="+type+"&user="+user;
 }
 //hi marc
+//good work
