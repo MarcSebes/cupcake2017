@@ -138,21 +138,55 @@
     
 
     //Get the User from the Query String Parameter
-    var authentication_token = getQueryString('authentication_token');
-    if (authentication_token == null) {
-			alert("I don't know you.  Please provide an authentication_token in the header.");
+    var user = getQueryString('user');
+    if (user == null) {
+			alert("I don't know you.  Please add ?user=FirstLast to the URL.");
 
     } 
+
+    //Get the Date from the Query String Parameter
+    var querydate = getQueryString('date');
+    if (querydate == null) {
+    		var d = new Date();
+    		var queryyear = d.getFullYear()
+    		var querymonth = ("0" + (d.getMonth() + 1)).slice(-2);
+    		var queryday = ("0" + d.getDate()).slice(-2);
+    		querydate = [queryyear,querymonth,queryday].join('-');
+    	}
+    console.log("Query Date Parameter: " + querydate )	
+ 
+
+
     //Get the Request Type from the Query String Parameter
     var validicrequesttype = getQueryString('type');
     if (validicrequesttype == null) {validicrequesttype="routine"};
 
 
     //Construct the Validic Request URLs
-    var validicrequestbase = "https://api.validic.com/v1/" + validicrequesttype + ".json?";
-    var validicrequestuser = "authentication_token=" + authentication_token;
-    var validicrequestparams = "&expanded=1&dashboard=1&start_date="+request_start_date+"&end_date="+request_end_date;  
-    var validicrequest = validicrequestbase + validicrequestuser + validicrequestparams
+	var validicrequestbase = "https://api2.stage.validic.com/users/";
+	var validicrequestuser = user;
+	var validicrequestdate = "&date=" + querydate;
+	var validicrequestcreds = "?token=abeed1ffe4f14f3fb7d9bcb4928c72b4";
+	switch (validicrequesttype) {
+					    case "routine":
+					        validicrequesttype="/summaries";
+					        break;
+					    case "weight":
+					        validicrequesttype="/measurements";
+					        break;
+					    case "fitness":
+					        validicrequesttype="/workouts";
+					        break;
+					    case "sleep":
+					        validicrequesttype="/sleep";
+					        break;
+					    case "nutrition":
+					        validicrequesttype="/nutrition";
+					        break;
+					}
+	var validicrequest = validicrequestbase + validicrequestuser + validicrequesttype + validicrequestcreds + validicrequestdate;
+
+
     console.log(validicrequest);
    
     //Now Make the  Request via jQuery
@@ -193,7 +227,7 @@ var obj = {a:1, 'b':'foo', c:[false,'false',null, 'null', {d:{e:1.3e5,f:'1.3e5'}
 		url: validicrequest,
 		type: 'GET',
 		beforeSend: function (xhr) {
-		    xhr.setRequestHeader('Validic-Version', '2016-03-01');
+		    //xhr.setRequestHeader('Validic-Version', '2016-03-01');
 		},
 		data: {},
 		success: function (data) { 

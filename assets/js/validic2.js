@@ -212,8 +212,13 @@
 						document.getElementById("article5text").innerHTML = "It took you " + myTimeToSleep + " minutes to fall asleep";
 					}
 				}
-5
-				//time_to_fall_asleep
 				
 		}, "json" );
+
+
+
+//set page links
+function detailnavigate(type) {
+	window.location.href = "details.html?type="+type+"&user="+user;
+}
 //hi marc
