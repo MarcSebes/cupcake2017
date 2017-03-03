@@ -116,7 +116,18 @@
 
 					mySteps = objSteps[0].value;
 					myActiveTime = Math.round(objActiveTime[0].value / 60);
-					myDistance = Math.round(objDistance[0].value);
+					myDistance = objDistance[0].value;
+					switch (objDistance[0].unit) {
+					    case "km":
+					        myDistance=Math.round(myDistance*0.621371*10)/10;
+					        break;
+					    case "m":
+					        myDistance=Math.round(myDistance*0.000621371*10)/10;
+					        break;
+					}
+
+
+
 					myCaloriesBurned = Math.round(objBMR[0].value + objenergy[0].value);
 
 					document.getElementById("article1text").innerHTML = mySteps + " steps";
