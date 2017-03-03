@@ -98,38 +98,34 @@
 
 	//Get Summary Data
 		$.get( validicsummaryrequest, function( data ) {
-				//console.log(data);
-				console.log(data.data["0"].metrics);
-				donkey = data.data["0"].metrics;
-				//mySteps = data.data["0"].metrics[4].value;
+				if (data.data[0]) {
+					console.log(data.data["0"].metrics);
+					donkey = data.data["0"].metrics;
 
-				//console.log(mySteps);
-		//console.log(Array.isArray(donkey));
+					function getValuebyType(type) {
+					  return donkey.filter(
+					      function(donkey){ return donkey.type == type }
+					  );
+					}
 
-		function getValuebyType(type) {
-		  return donkey.filter(
-		      function(donkey){ return donkey.type == type }
-		  );
-		}
+					var objSteps = getValuebyType('steps');
+					var objDistance = getValuebyType('distance');
+					var objActiveTime = getValuebyType('active_duration');
+					var objBMR = getValuebyType('basal_energy_burned');
+					var objenergy = getValuebyType('energy_burned');
 
-		var objSteps = getValuebyType('steps');
-		var objDistance = getValuebyType('distance');
-		var objActiveTime = getValuebyType('active_duration');
-		var objBMR = getValuebyType('basal_energy_burned');
-		var objenergy = getValuebyType('energy_burned');
+					mySteps = objSteps[0].value;
+					myActiveTime = Math.round(objActiveTime[0].value / 60);
+					myDistance = Math.round(objDistance[0].value);
+					myCaloriesBurned = Math.round(objBMR[0].value + objenergy[0].value);
 
-		mySteps = objSteps[0].value;
-		myActiveTime = Math.round(objActiveTime[0].value / 60);
-		myDistance = Math.round(objDistance[0].value);
-		myCaloriesBurned = Math.round(objBMR[0].value + objenergy[0].value);
+					document.getElementById("article1text").innerHTML = mySteps + " steps";
+					document.getElementById("article1content").innerHTML = "That's " + myDistance + " miles!" + "<br/>with " + myCaloriesBurned + " calories burned.";
 
-
-		document.getElementById("article1text").innerHTML = mySteps + " steps";
-		document.getElementById("article1content").innerHTML = "That's " + myDistance + " miles!" + "<br/>with " + myCaloriesBurned + " calories burned.";
-
-		if(myActiveTime) {
-			document.getElementById("article2text").innerHTML = myActiveTime + " active minutes";
-		};
+				if(myActiveTime) {
+					document.getElementById("article2text").innerHTML = myActiveTime + " active minutes";
+				};
+			}
 		}, "json" );
 
  	
@@ -149,8 +145,16 @@
 					}
 
 					var objWeight = getValuebyType('body_weight');
-					myWeight = Math.round(objWeight[0].value * 2.20462262*10)/10;
-					document.getElementById("article3text").innerHTML = myWeight + " lbs";
+					var objBodyFat = getValuebyType('body_fat');
+
+					if (objWeight[0]) {
+						myWeight = Math.round(objWeight[0].value * 2.20462262*10)/10;
+						myBodyFat = Math.round(objBodyFat[0].value * 10)/10;
+						document.getElementById("article3text").innerHTML = myWeight + " lbs";
+						document.getElementById("article3content").innerHTML = "You are " + myBodyFat + "% Phat!";
+					}
+
+
 				}
 		}, "json" );
 
@@ -180,24 +184,36 @@
 					    case "s":
 					        myDuration=myDuration/60;
 					        break;
-					    case 2:
-					        day = "Tuesday";
-					        break;
-					    case 3:
-					        day = "Wednesday";
-					        break;
-					    case 4:
-					        day = "Thursday";
-					        break;
-					    case 5:
-					        day = "Friday";
-					        break;
-					    case 6:
-					        day = "Saturday";
 					}
 					console.log(myDuration);
 					document.getElementById("article4text").innerHTML = myDuration + " Minutes";
 				}
 		}, "json" );
 
+
+	//Get Sleep Data
+	var validicsleeprequest = validicrequestbase + validicrequestuser + "/sleep" + validicrequestcreds + validicrequestdate;
+
+		$.get( validicsleeprequest, function( data ) {
+				console.log("Sleep");
+				console.log(data);
+				if (data.data["0"]) {
+					donkey = data.data["0"].metrics;			
+					function getValuebyType(type) {
+					  return donkey.filter(
+					      function(donkey){ return donkey.type == type }
+					  );
+					}
+
+					var objSleep = getValuebyType('time_to_fall_asleep');
+					if (objSleep[0]) {
+						myTimeToSleep = objSleep[0].value / 60;
+						console.log("MyTimeToSleep: " + myTimeToSleep);
+						document.getElementById("article5text").innerHTML = "It took you " + myTimeToSleep + " minutes to fall asleep";
+					}
+				}
+5
+				//time_to_fall_asleep
+				
+		}, "json" );
 //hi marc
