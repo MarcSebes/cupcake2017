@@ -196,6 +196,7 @@
 					        myDuration=myDuration/60;
 					        break;
 					}
+					myDuration = Math.round(myDuration*10)/10
 					console.log(myDuration);
 					document.getElementById("article4text").innerHTML = myDuration + " Minutes";
 				}
