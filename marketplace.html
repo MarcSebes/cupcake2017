@@ -98,12 +98,15 @@ function getValuebyType(type) {
 }
 
 var objSteps = getValuebyType('steps');
-var mySteps = objSteps[0].value;
-
+var objDistance = getValuebyType('distance');
 var objActiveTime = getValuebyType('active_duration');
+
+var mySteps = objSteps[0].value;
 var myActiveTime = objActiveTime[0].value;
-console.log(mySteps);
-console.log(myActiveTime);
+var myDistance = objDistance[0].value;
+
+
+
 
 
 
