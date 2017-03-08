@@ -235,3 +235,4 @@ function detailnavigate(type) {
 }
 //hi marc
 //good work
+//update bitch
