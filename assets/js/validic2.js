@@ -176,10 +176,33 @@
 					}
 
 					var objSleep = getValuebyType('time_to_fall_asleep');
+					var objREM = getValuebyType('rem_sleep');
+					var objDeep = getValuebyType('deep_sleep');
+					var objLight = getValuebyType('light_sleep');
+					var objSleepDuration = getValuebyType('asleep_duration'); 
+					
+					//if sleep duration was not provided, add up other sleep values to get a total.
+					var SleepDuration;
+					if (objSleepDuration[0]) {
+						SleepDuration = objSleepDuration[0];
+					}
+					else {
+						if (objREM[0]) {SleepDuration = SleepDuration + objREM[0].value;}
+						if (objDeep[0]) {SleepDuration = SleepDuration + objDeep[0].value;}
+						if (objLight[0]) {SleepDuration = SleepDuration + objLight[0].value;}
+					};
+					
+					SleepDuration = SleepDuration / 3600;
+					console.log("Sleep Duration: " + SleepDuration);
+					document.getElementById("article5text").innerHTML = "You slept for  " + SleepDuration + " hours";
+
 					if (objSleep[0]) {
 						myTimeToSleep = objSleep[0].value / 60;
 						console.log("MyTimeToSleep: " + myTimeToSleep);
-						document.getElementById("article5text").innerHTML = "It took you " + myTimeToSleep + " minutes to fall asleep";
+						
+						
+						
+						//document.getElementById("article5text").innerHTML = "It took you " + myTimeToSleep + " minutes to fall asleep";
 					}
 				}
 				
