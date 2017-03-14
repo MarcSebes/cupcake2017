@@ -17,52 +17,6 @@
     };
 
 
-    //Timzone offset function
-    function formatLocalDate(start) {
-    var now = new Date(),
-        tzo = -now.getTimezoneOffset(),
-        dif = tzo >= 0 ? '+' : '-',
-        pad = function(num) {
-            var norm = Math.abs(Math.floor(num));
-            return (norm < 10 ? '0' : '') + norm;
-        };
-
-
-
-    switch(start){
-    	case "start":
-		    return now.getFullYear() 
-		        + '-' + pad(now.getMonth()+1)
-		        + '-' + pad(now.getDate())
-		        + 'T' + pad("00")
-		        + ':' + pad("00") 
-		        + ':' + pad("00") 
-		        + dif + pad(tzo / 60) 
-		        + ':' + pad(tzo % 60);
-	        break;
-        case "end":
-			return now.getFullYear() 
-		        + '-' + pad(now.getMonth()+1)
-		        + '-' + pad(now.getDate())
-		        + 'T' + pad("23")
-		        + ':' + pad("59") 
-		        + ':' + pad("59") 
-		        + dif + pad(tzo / 60) 
-		        + ':' + pad(tzo % 60);    
-	        break;   	
-        default:
-			 return now.getFullYear() 
-		        + '-' + pad(now.getMonth()+1)
-		        + '-' + pad(now.getDate())
-				+ 'T' + pad(now.getHours())
-		        + ':' + pad(now.getMinutes()) 
-		        + ':' + pad(now.getSeconds()) 
-		        + dif + pad(tzo / 60) 
-		        + ':' + pad(tzo % 60);  
-	    }
-
-}
-
     //Determine the Date 
     var date_today = new Date();
     //var  = formatLocalDate("start");
@@ -159,12 +113,17 @@
 					var objBodyFat = getValuebyType('body_fat');
 
 					if (objWeight[0]) {
-						myWeight = Math.round(objWeight[0].value * 2.20462262*10)/10;
-						myBodyFat = Math.round(objBodyFat[0].value * 10)/10;
-						document.getElementById("article3text").innerHTML = myWeight + " lbs";
-						document.getElementById("article3content").innerHTML = "You are " + myBodyFat + "% Phat!";
+						if(objWeight) {
+							myWeight = Math.round(objWeight[0].value * 2.20462262*10)/10;
+							document.getElementById("article3text").innerHTML = myWeight + " lbs";
+						}
+						if(objBodyFat) {
+							myBodyFat = Math.round(objBodyFat[0].value * 10)/10;
+							document.getElementById("article3content").innerHTML = "You are " + myBodyFat + "% Phat!";
+						}
+						
+						
 					}
-
 
 				}
 		}, "json" );
