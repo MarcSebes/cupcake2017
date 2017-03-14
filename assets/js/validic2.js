@@ -185,9 +185,13 @@
 					var SleepDuration;
 					if (objSleepDuration[0]) {
 						SleepDuration = objSleepDuration[0];
+						console.log("Directly Retrieved Sleep Duration: " + SleepDuration);
 					}
 					else {
-						if (objREM[0]) {SleepDuration = SleepDuration + objREM[0].value;}
+						if (objREM[0]) {
+							SleepDuration = SleepDuration + objREM[0].value; 
+							console.log("REM is " + objREM[0].value);
+						}
 						if (objDeep[0]) {SleepDuration = SleepDuration + objDeep[0].value;}
 						if (objLight[0]) {SleepDuration = SleepDuration + objLight[0].value;}
 					};
@@ -199,6 +203,7 @@
 					if (objSleep[0]) {
 						myTimeToSleep = objSleep[0].value / 60;
 						console.log("MyTimeToSleep: " + myTimeToSleep);
+
 						
 						
 						
