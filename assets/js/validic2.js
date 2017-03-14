@@ -191,9 +191,21 @@
 						if (objREM[0]) {
 							SleepDuration = SleepDuration + objREM[0].value; 
 							console.log("REM is " + objREM[0].value);
+							console.log(Number(objREM[0].value));
+							console.log("SleepDuration is " + SleepDuration);
 						}
-						if (objDeep[0]) {SleepDuration = SleepDuration + objDeep[0].value;}
-						if (objLight[0]) {SleepDuration = SleepDuration + objLight[0].value;}
+						if (objDeep[0]) {
+							SleepDuration = SleepDuration + objDeep[0].value;
+							console.log("Deep Sleep is " + objDeep[0].value);
+							console.log(Number(objDeep[0].value));
+							console.log("SleepDuration is " + SleepDuration);
+						}
+						if (objLight[0]) {
+							SleepDuration = SleepDuration + objLight[0].value;
+							console.log("Deep Sleep is " + objDeep[0].value);
+							console.log(Number(objLight[0].value));
+							console.log("SleepDuration is " + SleepDuration);
+						}
 					};
 					
 					SleepDuration = SleepDuration / 3600;
