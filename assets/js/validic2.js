@@ -113,17 +113,16 @@
 					var objBodyFat = getValuebyType('body_fat');
 
 					if (objWeight[0]) {
-						if(objWeight) {
 							myWeight = Math.round(objWeight[0].value * 2.20462262*10)/10;
 							document.getElementById("article3text").innerHTML = myWeight + " lbs";
-						}
-						if(objBodyFat) {
+					}
+					if (objBodyFat[0]) {
 							myBodyFat = Math.round(objBodyFat[0].value * 10)/10;
 							document.getElementById("article3content").innerHTML = "You are " + myBodyFat + "% Phat!";
-						}
-						
-						
 					}
+						
+						
+				
 
 				}
 		}, "json" );
