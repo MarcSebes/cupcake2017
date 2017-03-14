@@ -182,7 +182,7 @@
 					var objSleepDuration = getValuebyType('asleep_duration'); 
 					
 					//if sleep duration was not provided, add up other sleep values to get a total.
-					var SleepDuration;
+					var SleepDuration = 0;
 					if (objSleepDuration[0]) {
 						SleepDuration = objSleepDuration[0];
 						console.log("Directly Retrieved Sleep Duration: " + SleepDuration);
