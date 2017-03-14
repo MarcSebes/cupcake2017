@@ -198,7 +198,7 @@
 						}
 						if (objLight[0]) {
 							SleepDuration = SleepDuration + Number(objLight[0].value);
-							console.log("Light Sleep is " + objLightp[0].value);
+							console.log("Light Sleep is " + objLight[0].value);
 						}
 					};
 					
