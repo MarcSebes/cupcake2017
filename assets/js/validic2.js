@@ -190,21 +190,15 @@
 					else {
 						if (objREM[0]) {
 							SleepDuration = SleepDuration + Number(objREM[0].value); 
-							console.log("REM is " + objREM[0].value);
-							console.log(Number(objREM[0].value));
-							console.log("SleepDuration is " + SleepDuration);
+							console.log("REM is " + Number(objREM[0].value));
 						}
 						if (objDeep[0]) {
 							SleepDuration = SleepDuration + Number(objDeep[0].value);
-							console.log("Deep Sleep is " + objDeep[0].value);
-							console.log(Number(objDeep[0].value));
-							console.log("SleepDuration is " + SleepDuration);
+							console.log("Deep Sleep is " + Number(objDeep[0].value));
 						}
 						if (objLight[0]) {
 							SleepDuration = SleepDuration + Number(objLight[0].value);
-							console.log("Light Sleep is " + objDeep[0].value);
-							console.log(Number(objLight[0].value));
-							console.log("SleepDuration is " + SleepDuration);
+							console.log("Light Sleep is " + objLightp[0].value);
 						}
 					};
 					
