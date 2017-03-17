@@ -223,7 +223,7 @@
 
 //set page links
 function detailnavigate(type) {
-	window.location.href = "details.html?type="+type+"&user="+user;
+	window.location.href = "details.html?type="+type+"&user="+user+validicrequestdate;
 }
 //hi marc
 //good work
