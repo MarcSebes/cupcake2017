@@ -326,7 +326,6 @@ var r = new Array(), j = -1;
 //End Table Creation
 
 
-				}
 				
 		}, "json" );
 
