@@ -91,9 +91,12 @@
 					document.getElementById("article2text").innerHTML = myActiveTime + " active minutes";
 				};
 
-//Begin Test				
+//Begin Test
+console.log('Trying the table');				
 var r = new Array(), j = -1;
  for (var key=0, size=donkey.length; key<size; key++){
+	 console.log('size = ' + size);
+	  console.log('key = ' + key);
      r[++j] ='<tr><td>';
      r[++j] = donkey[key][0];
      r[++j] = '</td><td class="whatever1">';
