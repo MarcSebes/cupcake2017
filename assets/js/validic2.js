@@ -91,8 +91,8 @@
 					document.getElementById("article2text").innerHTML = myActiveTime + " active minutes";
 				};
 
-//Begin Test
-console.log('Trying the table');				
+//Begin Summary Table Creation
+<h3>Summary</h3>			
 var r = new Array(), j = -1;
  								
  r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
@@ -108,7 +108,7 @@ var r = new Array(), j = -1;
 
  $('#summarydataTable').html(r.join(''));
 
-//End Test
+//End Table Creation
 
 
 				
@@ -179,6 +179,28 @@ var r = new Array(), j = -1;
 					myDuration = Math.round(myDuration*10)/10
 					console.log(myDuration);
 					document.getElementById("article4text").innerHTML = myDuration + " Minutes";
+
+
+//Begin Workouts Table Creation
+<h3>Summary</h3>			
+var r = new Array(), j = -1;
+ 								
+ r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
+ for (var key=0, size=donkey.length; key<size; key++){
+     r[++j] ='<tr><td>';
+     r[++j] = donkey[key].type;
+     r[++j] = '</td><td class="whatever1">';
+     r[++j] = donkey[key].value;
+     r[++j] = '</td><td class="whatever2">';
+     r[++j] = donkey[key].unit;
+     r[++j] = '</td></tr>';
+ }
+
+ $('#summarydataTable').html(r.join(''));
+
+//End Table Creation
+
+
 				}
 		}, "json" );
 
