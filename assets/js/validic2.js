@@ -282,6 +282,59 @@ var r = new Array(), j = -1;
 		}, "json" );
 
 
+	//Get Nutrition Data
+	var validicnutritionrequest = validicrequestbase + validicrequestuser + "/nutrition" + validicrequestcreds + validicrequestdate;
+
+		$.get( validicnutritionrequest, function( data ) {
+				console.log("Nutrition");
+				console.log(data);
+				if (data.data["0"]) {
+					donkey = data.data["0"].metrics;			
+					function getValuebyType(type) {
+					  return donkey.filter(
+					      function(donkey){ return donkey.type == type }
+					  );
+					}
+
+					//var objSleep = getValuebyType('time_to_fall_asleep');
+					//var objREM = getValuebyType('rem_sleep');
+					//var objDeep = getValuebyType('deep_sleep');
+					//var objLight = getValuebyType('light_sleep');
+					//var objSleepDuration = getValuebyType('asleep_duration'); 
+					
+
+						
+						//document.getElementById("article5text").innerHTML = "It took you " + myTimeToSleep + " minutes to fall asleep";
+					}
+
+//Begin Sleep Table Creation			
+var r = new Array(), j = -1;
+ 								
+ r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
+ for (var key=0, size=donkey.length; key<size; key++){
+     r[++j] ='<tr><td>';
+     r[++j] = donkey[key].type;
+     r[++j] = '</td><td class="whatever1">';
+     r[++j] = donkey[key].value;
+     r[++j] = '</td><td class="whatever2">';
+     r[++j] = donkey[key].unit;
+     r[++j] = '</td></tr>';
+ }
+
+ $('#sleepdataTable').html(r.join(''));
+
+//End Table Creation
+
+
+				}
+				
+		}, "json" );
+
+
+
+
+
+
 
 //set page links
 function detailnavigate(type) {
