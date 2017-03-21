@@ -91,8 +91,7 @@
 					document.getElementById("article2text").innerHTML = myActiveTime + " active minutes";
 				};
 
-//Begin Summary Table Creation
-<h3>Summary</h3>			
+//Begin Summary Table Creation			
 var r = new Array(), j = -1;
  								
  r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
@@ -181,8 +180,7 @@ var r = new Array(), j = -1;
 					document.getElementById("article4text").innerHTML = myDuration + " Minutes";
 
 
-//Begin Workouts Table Creation
-<h3>Summary</h3>			
+//Begin Workouts Table Creation			
 var r = new Array(), j = -1;
  								
  r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
