@@ -309,8 +309,7 @@ var r = new Array(), j = -1;
 				console.log(data.data.length);
 				if (data.data["0"]) {
 					var nutritionsource = data.data["0"].source.type;
-					document.getElementById("nutritiondata").appendChild(nutritionsource);
-					
+					document.getElementById("nutritionsource").innerHTML = nutritionsource;
 					ndonkey = data.data["0"].metrics;			
 					function getValuebyType(type) {
 					  return ndonkey.filter(
