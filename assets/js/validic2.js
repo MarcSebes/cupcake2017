@@ -194,7 +194,7 @@ var r = new Array(), j = -1;
      r[++j] = '</td></tr>';
  }
 
- $('#summarydataTable').html(r.join(''));
+ $('#workoutsdataTable').html(r.join(''));
 
 //End Table Creation
 
@@ -257,6 +257,26 @@ var r = new Array(), j = -1;
 						
 						//document.getElementById("article5text").innerHTML = "It took you " + myTimeToSleep + " minutes to fall asleep";
 					}
+
+//Begin Sleep Table Creation			
+var r = new Array(), j = -1;
+ 								
+ r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
+ for (var key=0, size=donkey.length; key<size; key++){
+     r[++j] ='<tr><td>';
+     r[++j] = donkey[key].type;
+     r[++j] = '</td><td class="whatever1">';
+     r[++j] = donkey[key].value;
+     r[++j] = '</td><td class="whatever2">';
+     r[++j] = donkey[key].unit;
+     r[++j] = '</td></tr>';
+ }
+
+ $('#sleepdataTable').html(r.join(''));
+
+//End Table Creation
+
+
 				}
 				
 		}, "json" );
