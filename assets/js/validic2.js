@@ -94,18 +94,18 @@
 //Begin Test
 console.log('Trying the table');				
 var r = new Array(), j = -1;
+ 								
+ r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
  for (var key=0, size=donkey.length; key<size; key++){
-	 console.log('size = ' + size);
-	  console.log('key = ' + key);
      r[++j] ='<tr><td>';
      r[++j] = donkey[key].type;
-	 console.log(donkey[key].type);
      r[++j] = '</td><td class="whatever1">';
      r[++j] = donkey[key].value;
      r[++j] = '</td><td class="whatever2">';
      r[++j] = donkey[key].unit;
      r[++j] = '</td></tr>';
  }
+
  $('#summarydataTable').html(r.join(''));
 
 //End Test
