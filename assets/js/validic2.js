@@ -34,6 +34,7 @@
 
     //Get the Date from the Query String Parameter
     var querydate = getQueryString('date');
+	
     if (querydate == null) {
     		var d = new Date();
     		var queryyear = d.getFullYear()
@@ -41,6 +42,7 @@
     		var queryday = ("0" + d.getDate()).slice(-2);
     		querydate = [queryyear,querymonth,queryday].join('-');
     	}
+	document.getElementById("headerdate").value = querydate;
     console.log("Query Date Parameter: " + querydate )	
     //setup query 
     	var validicrequestbase = "https://api2.stage.validic.com/users/";
