@@ -65,6 +65,7 @@
     	var validicrequestuser = user;
   		var validicrequestdate = "&date=" + querydate;
 		var validicsummaryrequest = validicrequestbase + validicrequestuser + "/summaries" + validicrequestcreds + validicrequestdate;
+		console.log(validicsummaryrequest);
 
 
 	//Get Summary Data
@@ -306,6 +307,8 @@ var r = new Array(), j = -1;
 				console.log("Nutrition");
 				console.log(data);
 				if (data.data["0"]) {
+					var nutritionsource = data.data["0".source.type]
+					document.getElementById("nutritionsource").innerHTML = nutritionsource;
 					ndonkey = data.data["0"].metrics;			
 					function getValuebyType(type) {
 					  return ndonkey.filter(
