@@ -307,7 +307,7 @@ var r = new Array(), j = -1;
 						//document.getElementById("article5text").innerHTML = "It took you " + myTimeToSleep + " minutes to fall asleep";
 					}
 
-//Begin Sleep Table Creation			
+//Begin Nutrition Table Creation			
 var r = new Array(), j = -1;
  								
  r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
@@ -321,11 +321,9 @@ var r = new Array(), j = -1;
      r[++j] = '</td></tr>';
  }
 
- $('#sleepdataTable').html(r.join(''));
+ $('#nutritiondataTable').html(r.join(''));
 
 //End Table Creation
-
-
 				
 		}, "json" );
 
@@ -339,6 +337,4 @@ var r = new Array(), j = -1;
 function detailnavigate(type) {
 	window.location.href = "details.html?type="+type+"&user="+user+validicrequestdate;
 }
-//hi marc
-//good work
-//update bitch
+//end file
