@@ -125,11 +125,11 @@ var r = new Array(), j = -1;
 		$.get( validicweightrequest, function( data ) {
 				console.log(data);
 				if (data.data["0"]) {
-					donkey = data.data["0"].metrics;
+					weightdonkey = data.data["0"].metrics;
 				
 					function getValuebyType(type) {
-					  return donkey.filter(
-					      function(donkey){ return donkey.type == type }
+					  return weightdonkey.filter(
+					      function(weightdonkey){ return weightdonkey.type == type }
 					  );
 					}
 
@@ -158,11 +158,11 @@ var r = new Array(), j = -1;
 		$.get( validicworkoutrequest, function( data ) {
 				console.log(data);
 				if (data.data["0"]) {
-				donkey = data.data["0"].metrics;
+				wdonkey = data.data["0"].metrics;
 
 					function getValuebyType(type) {
-					  return donkey.filter(
-					      function(donkey){ return donkey.type == type }
+					  return wdonkey.filter(
+					      function(wdonkey){ return wdonkey.type == type }
 					  );
 					}
 
@@ -187,13 +187,13 @@ var r = new Array(), j = -1;
 var r = new Array(), j = -1;
  								
  r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
- for (var key=0, size=donkey.length; key<size; key++){
+ for (var key=0, size=weightdonkey.length; key<size; key++){
      r[++j] ='<tr><td>';
-     r[++j] = donkey[key].type;
+     r[++j] = weightdonkey[key].type;
      r[++j] = '</td><td class="whatever1">';
-     r[++j] = donkey[key].value;
+     r[++j] = weightdonkey[key].value;
      r[++j] = '</td><td class="whatever2">';
-     r[++j] = donkey[key].unit;
+     r[++j] = weightdonkey[key].unit;
      r[++j] = '</td></tr>';
  }
 
@@ -213,10 +213,10 @@ var r = new Array(), j = -1;
 				console.log("Sleep");
 				console.log(data);
 				if (data.data["0"]) {
-					donkey = data.data["0"].metrics;			
+					sdonkey = data.data["0"].metrics;			
 					function getValuebyType(type) {
-					  return donkey.filter(
-					      function(donkey){ return donkey.type == type }
+					  return sdonkey.filter(
+					      function(sdonkey){ return sdonkey.type == type }
 					  );
 					}
 
@@ -265,13 +265,13 @@ var r = new Array(), j = -1;
 var r = new Array(), j = -1;
  								
  r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
- for (var key=0, size=donkey.length; key<size; key++){
+ for (var key=0, size=sdonkey.length; key<size; key++){
      r[++j] ='<tr><td>';
-     r[++j] = donkey[key].type;
+     r[++j] = sdonkey[key].type;
      r[++j] = '</td><td class="whatever1">';
-     r[++j] = donkey[key].value;
+     r[++j] = sdonkey[key].value;
      r[++j] = '</td><td class="whatever2">';
-     r[++j] = donkey[key].unit;
+     r[++j] = sdonkey[key].unit;
      r[++j] = '</td></tr>';
  }
 
@@ -292,10 +292,10 @@ var r = new Array(), j = -1;
 				console.log("Nutrition");
 				console.log(data);
 				if (data.data["0"]) {
-					donkey = data.data["0"].metrics;			
+					ndonkey = data.data["0"].metrics;			
 					function getValuebyType(type) {
-					  return donkey.filter(
-					      function(donkey){ return donkey.type == type }
+					  return ndonkey.filter(
+					      function(ndonkey){ return ndonkey.type == type }
 					  );
 					}
 
@@ -314,13 +314,13 @@ var r = new Array(), j = -1;
 var r = new Array(), j = -1;
  								
  r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
- for (var key=0, size=donkey.length; key<size; key++){
+ for (var key=0, size=ndonkey.length; key<size; key++){
      r[++j] ='<tr><td>';
-     r[++j] = donkey[key].type;
+     r[++j] = ndonkey[key].type;
      r[++j] = '</td><td class="whatever1">';
-     r[++j] = donkey[key].value;
+     r[++j] = ndonkey[key].value;
      r[++j] = '</td><td class="whatever2">';
-     r[++j] = donkey[key].unit;
+     r[++j] = ndonkey[key].unit;
      r[++j] = '</td></tr>';
  }
 
