@@ -43,7 +43,8 @@
     		querydate = [queryyear,querymonth,queryday].join('-');
     	}
 	document.getElementById("headerdate").innerHTML = querydate;
-    console.log("Query Date Parameter: " + querydate )	
+	document.getElementById("subheading").innerHTML = user;
+	
     //setup query 
     	var validicrequestbase = "https://api2.stage.validic.com/users/";
     	var validicrequestuser = user;
