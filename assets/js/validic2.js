@@ -1,12 +1,15 @@
 
 
 
-//Variables to hold data
+	//Variables to hold data
 	var mySteps = "";
 	var myActiveTime = "";
 	var myDistance = "";
 	var myCalories = "";
 	var myWeight = "";
+
+    //Determine the Date 
+    var date_today = new Date();
 
     //Get Parameter Values from Query String 
     var getQueryString = function ( field, url ) {
@@ -16,12 +19,24 @@
         return string ? string[1] : null;
     };
 
-
-    //Determine the Date 
-    var date_today = new Date();
-    //var  = formatLocalDate("start");
-    //var request_end_date = formatLocalDate("end");
-
+	//Get the Account from the Query String Parameter
+	var account = getQueryString('account');
+	var validicrequestcreds = "";
+	switch(account) {
+    case engineering:
+	case eng:
+        validicrequestcreds = "?token=1533597acc3945fea2256569db36bc03";
+        break;
+    case other:
+		var parametertoken = getQueryString('token');
+        validicrequestcreds = "?token=" + parametertoken;
+        break;
+    case challenge:
+	default:
+		//assume Validic Challenge app
+       validicrequestcreds = "?token=abeed1ffe4f14f3fb7d9bcb4928c72b4";
+}
+ 
 
     
 
@@ -49,7 +64,6 @@
     	var validicrequestbase = "https://api2.stage.validic.com/users/";
     	var validicrequestuser = user;
   		var validicrequestdate = "&date=" + querydate;
-    	var validicrequestcreds = "?token=abeed1ffe4f14f3fb7d9bcb4928c72b4";
 		var validicsummaryrequest = validicrequestbase + validicrequestuser + "/summaries" + validicrequestcreds + validicrequestdate;
 
 
