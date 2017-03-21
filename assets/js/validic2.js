@@ -90,6 +90,24 @@
 				if(myActiveTime) {
 					document.getElementById("article2text").innerHTML = myActiveTime + " active minutes";
 				};
+
+//Begin Test				
+var r = new Array(), j = -1;
+ for (var key=0, size=donkye.length; key<size; key++){
+     r[++j] ='<tr><td>';
+     r[++j] = donkey[key][0];
+     r[++j] = '</td><td class="whatever1">';
+     r[++j] = donkey[key][1];
+     r[++j] = '</td><td class="whatever2">';
+     r[++j] = donkey[key][2];
+     r[++j] = '</td></tr>';
+ }
+ $('#summarydataTable').html(r.join(''));
+
+//End Test
+
+
+				
 			}
 		}, "json" );
 
