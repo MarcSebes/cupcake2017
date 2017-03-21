@@ -23,15 +23,15 @@
 	var account = getQueryString('account');
 	var validicrequestcreds = "";
 	switch(account) {
-    case engineering:
-	case eng:
+    case "engineering":
+	case "eng":
         validicrequestcreds = "?token=1533597acc3945fea2256569db36bc03";
         break;
-    case other:
+    case "other":
 		var parametertoken = getQueryString('token');
         validicrequestcreds = "?token=" + parametertoken;
         break;
-    case challenge:
+    case "challenge":
 	default:
 		//assume Validic Challenge app
        validicrequestcreds = "?token=abeed1ffe4f14f3fb7d9bcb4928c72b4";
