@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Cupcake v2 Viewer</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/flat/zebra_dialog.css" type="text/css">
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+	</head>
+	<body>
+		<!-- Wrapper -->
+			<div id="wrapper">
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+                            To use cupcake, you may need to add a few parameters to the URL.  A table of all available options is below.
+                            <br/><br/>
+                            Some example URLs include:
+                           <ul>
+                               <li> <a href="https://cupcake2017.herokuapp.com/?user=MarcSebes">
+                            https://cupcake2017.herokuapp.com/?user=MarcSebes
+                            </a>
+                            <li><a href="https://cupcake2017.herokuapp.com/?user=MarcSebes&date=2017-03-17">
+                            https://cupcake2017.herokuapp.com/?user=MarcSebes&date=2017-03-17
+                            </a>
+                            <li> <a href="https://cupcake2017.herokuapp.com/?user=marc&account=eng&date=2017-03-21">
+                            https://cupcake2017.herokuapp.com/?user=marc&account=eng&date=2017-03-21
+                            </a>
+                            </ul>
+
+                            <br/>
+                            <table>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Description</th>
+                                <th>Values</th>
+                                <th>Required</th>
+                            </tr>
+                            <tr>
+                                <td>user</td>
+                                <td>The UID of the user account in Validic</td>
+                                <td>Any case sensitive value. In the Validic Challenge, it is your First Name and Last Name in Camel Case (e.g. MarcSebes, ShawnSpencer, TerryBolea, VincentFurnier).  In the engineering account it typically your lowercase first name</td>
+                                <td>Required</td>
+                            </tr> <tr>
+                                <td>date</td>
+                                <td>The date of the activity.  Note that this is not the updated date for the data.  Format is YYYY-MM-DD </td>
+                                <td>e.g. 2017-03-17  (Happy St. Patrick's Day)</td>
+                                <td>Optional.  Defaults to today's date</td>
+                            </tr> <tr>
+                                <td>account</td>
+                                <td>The customer account in which this user exists.  </td>
+                                <td>Valid values are "challenge", "engineering" (or "eng"), and "other".  Note if other is used.   </td>
+                                <td>Optional.  Defaults to Validic Challenge account.</td>
+                            </tr> <tr>
+                                <td>token</td>
+                                <td>The developer token for the account.  (Yes, that's not very secure)</td>
+                                <td>A guid</td>
+                                <td>Optional.  Required for "other" account.</td>
+                            </tr>
+                            </table>
+
+
+						</div>
+
+                    
+					</div>
+            </div>
+    </body>
+</html>
