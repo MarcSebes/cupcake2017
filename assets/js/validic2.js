@@ -64,76 +64,91 @@
     	var validicrequestbase = "https://api2.stage.validic.com/users/";
     	var validicrequestuser = user;
   		var validicrequestdate = "&date=" + querydate;
+
+
+
+function GetSummaryData() {
+
 		var validicsummaryrequest = validicrequestbase + validicrequestuser + "/summaries" + validicrequestcreds + validicrequestdate;
 		console.log(validicsummaryrequest);
 
 
 	//Get Summary Data
 		$.get( validicsummaryrequest, function( data ) {
-				if (data.data[0]) {
-					console.log(data.data["0"].metrics);
-					donkey = data.data["0"].metrics;
+		console.log("summary data retrieved with " + data.data.length+ " records");		
+		
+				if(data.data[0]){
+					donkey = data.data[0].metrics;
+					console.log(donkey.length);
 
 					function getValuebyType(type) {
 					  return donkey.filter(
 					      function(donkey){ return donkey.type == type }
 					  );
 					}
+						
+						var objSteps = getValuebyType('steps');
+						var objDistance = getValuebyType('distance');
+						var objActiveTime = getValuebyType('active_duration');
+						var objBMR = getValuebyType('basal_energy_burned');
+						var objenergy = getValuebyType('energy_burned');
 
-					var objSteps = getValuebyType('steps');
-					var objDistance = getValuebyType('distance');
-					var objActiveTime = getValuebyType('active_duration');
-					var objBMR = getValuebyType('basal_energy_burned');
-					var objenergy = getValuebyType('energy_burned');
+						mySteps = objSteps[0].value;
+						myActiveTime = Math.round(objActiveTime[0].value / 60);
+						myDistance = objDistance[0].value;
+						switch (objDistance[0].unit) {
+							case "km":
+								myDistance=Math.round(myDistance*0.621371*10)/10;
+								break;
+							case "m":
+								myDistance=Math.round(myDistance*0.000621371*10)/10;
+								break;
+						}
+					
+						myCaloriesBurned = Math.round(objBMR[0].value + objenergy[0].value);
 
-					mySteps = objSteps[0].value;
-					myActiveTime = Math.round(objActiveTime[0].value / 60);
-					myDistance = objDistance[0].value;
-					switch (objDistance[0].unit) {
-					    case "km":
-					        myDistance=Math.round(myDistance*0.621371*10)/10;
-					        break;
-					    case "m":
-					        myDistance=Math.round(myDistance*0.000621371*10)/10;
-					        break;
-					}
+						//write results
+						document.getElementById("article1text").innerHTML = mySteps + " steps";
+						document.getElementById("article1content").innerHTML = "That's " + myDistance + " miles!" + "<br/>with " + myCaloriesBurned + " calories burned.";
+
+						if(myActiveTime) {
+							document.getElementById("article2text").innerHTML = myActiveTime + " active minutes";
+						};
+				}
+				
+for (var record=0, quantity=data.data.length; record<quantity; record++){
+	console.log("record = " + record + " and quantity = "+quantity);
+
+			$('#summarydata').append(data.data[record].source.type);
+			var newtablehtml = "<table id='summarytable"+record+"'><tr><th>Type</th><th>Value</th><th>Unit</th></tr></table>";
+			
+			$('#summarydata').append(newtablehtml);
+			//Begin Table RowCreation			
+			var r = new Array(), j = -1;				
+			console.log(data.data[record].metrics.length);	
+			for (var key=0, size=data.data[record].metrics.length; key<size; key++){
+				r[++j] ='<tr><td>';
+				r[++j] = data.data[record].metrics[key].type;
+				r[++j] = '</td><td>';
+				r[++j] = data.data[record].metrics[key].value;
+				r[++j] = '</td><td>';
+				r[++j] = data.data[record].metrics[key].unit;
+				r[++j] = '</td></tr>';
+			}
+
+			$('#summarytable'+record).html(r.join(''));
 
 
-
-					myCaloriesBurned = Math.round(objBMR[0].value + objenergy[0].value);
-
-					document.getElementById("article1text").innerHTML = mySteps + " steps";
-					document.getElementById("article1content").innerHTML = "That's " + myDistance + " miles!" + "<br/>with " + myCaloriesBurned + " calories burned.";
-
-				if(myActiveTime) {
-					document.getElementById("article2text").innerHTML = myActiveTime + " active minutes";
-				};
-
-//Begin Summary Table Creation			
-var r = new Array(), j = -1;
- 								
- r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
- for (var key=0, size=donkey.length; key<size; key++){
-     r[++j] ='<tr><td>';
-     r[++j] = donkey[key].type;
-     r[++j] = '</td><td class="whatever1">';
-     r[++j] = donkey[key].value;
-     r[++j] = '</td><td class="whatever2">';
-     r[++j] = donkey[key].unit;
-     r[++j] = '</td></tr>';
- }
-
- $('#summarydataTable').html(r.join(''));
-
-//End Table Creation
-
+			//End Table Creation
 
 				
 			}
 		}, "json" );
 
- 	
+} 	
 
+
+function GetWeightData() {
 	//Get Weight Data
 	var validicweightrequest = validicrequestbase + validicrequestuser + "/measurements" + validicrequestcreds + validicrequestdate;
 
@@ -161,12 +176,38 @@ var r = new Array(), j = -1;
 					}
 						
 						
-				
+for (var record=0, quantity=data.data.length; record<quantity; record++){
+	console.log("Weight record = " + record + " and quantity = "+quantity);
 
-				}
+			$('#measurementsdata').append(data.data[record].source.type);
+			var newtablehtml = "<table id='measurementstable"+record+"'><tr><th>Type</th><th>Value</th><th>Unit</th></tr></table>";
+			
+			$('#measurementsdata').append(newtablehtml);
+			//Begin Table RowCreation			
+			var r = new Array(), j = -1;				
+			console.log("measurements metrics = "+ data.data[record].metrics.length);	
+			for (var key=0, size=data.data[record].metrics.length; key<size; key++){
+				r[++j] ='<tr><td>';
+				r[++j] = data.data[record].metrics[key].type;
+				r[++j] = '</td><td>';
+				r[++j] = data.data[record].metrics[key].value;
+				r[++j] = '</td><td>';
+				r[++j] = data.data[record].metrics[key].unit;
+				r[++j] = '</td></tr>';
+			}
+
+			$('#measurementstable'+record).html(r.join(''));
+
+
+			//End Table Creation
+
+	}
+			}
 		}, "json" );
+}
 
 
+function GetWorkoutsData() {
 	//Get Workouts Data
 	var validicworkoutrequest = validicrequestbase + validicrequestuser + "/workouts" + validicrequestcreds + validicrequestdate;
 
@@ -180,47 +221,59 @@ var r = new Array(), j = -1;
 					      function(wdonkey){ return wdonkey.type == type }
 					  );
 					}
-
+/*
 					var objDuration = getValuebyType('active_duration');
-					console.log("Duration object");
-					console.log(objDuration);
-					myDuration = objDuration[0].value;
-					switch (objDuration[0].unit) {
-					    case "ms":
-					        myDuration=myDuration/1000/60;
-					        break;
-					    case "s":
-					        myDuration=myDuration/60;
-					        break;
+					if(objDuration[0]) {
+						
+						console.log(objDuration);
+						
+						myDuration = objDuration[0].value;
+						switch (objDuration[0].unit) {
+							case "ms":
+								myDuration=myDuration/1000/60;
+								break;
+							case "s":
+								myDuration=myDuration/60;
+								break;
+						}
+						myDuration = Math.round(myDuration*10)/10
+						console.log(myDuration);
+						document.getElementById("article4text").innerHTML = myDuration + " Minutes";
+						
 					}
-					myDuration = Math.round(myDuration*10)/10
-					console.log(myDuration);
-					document.getElementById("article4text").innerHTML = myDuration + " Minutes";
+*/
+for (var record=0, quantity=data.data.length; record<quantity; record++){
+	console.log("record = " + record + " and quantity = "+quantity);
+
+			$('#workoutsdata').append(data.data[record].source.type);
+			var newtablehtml = "<table id='workoutstable"+record+"'><tr><th>Type</th><th>Value</th><th>Unit</th></tr></table>";
+			
+			$('#workoutsdata').append(newtablehtml);
+			//Begin Table RowCreation			
+			var r = new Array(), j = -1;				
+			console.log(data.data[record].metrics.length);	
+			for (var key=0, size=data.data[record].metrics.length; key<size; key++){
+				r[++j] ='<tr><td>';
+				r[++j] = data.data[record].metrics[key].type;
+				r[++j] = '</td><td>';
+				r[++j] = data.data[record].metrics[key].value;
+				r[++j] = '</td><td>';
+				r[++j] = data.data[record].metrics[key].unit;
+				r[++j] = '</td></tr>';
+			}
+
+			$('#workoutstable'+record).html(r.join(''));
 
 
-//Begin Workouts Table Creation			
-var r = new Array(), j = -1;
- 								
- r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
- for (var key=0, size=weightdonkey.length; key<size; key++){
-     r[++j] ='<tr><td>';
-     r[++j] = weightdonkey[key].type;
-     r[++j] = '</td><td class="whatever1">';
-     r[++j] = weightdonkey[key].value;
-     r[++j] = '</td><td class="whatever2">';
-     r[++j] = weightdonkey[key].unit;
-     r[++j] = '</td></tr>';
- }
+			//End Table Creation
 
- $('#workoutsdataTable').html(r.join(''));
-
-//End Table Creation
-
-
-				}
+	}
+			}
 		}, "json" );
+}
 
 
+function GetSleepData() {
 	//Get Sleep Data
 	var validicsleeprequest = validicrequestbase + validicrequestuser + "/sleep" + validicrequestcreds + validicrequestdate;
 
@@ -276,85 +329,94 @@ var r = new Array(), j = -1;
 						//document.getElementById("article5text").innerHTML = "It took you " + myTimeToSleep + " minutes to fall asleep";
 					}
 
-//Begin Sleep Table Creation			
-var r = new Array(), j = -1;
- 								
- r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
- for (var key=0, size=sdonkey.length; key<size; key++){
-     r[++j] ='<tr><td>';
-     r[++j] = sdonkey[key].type;
-     r[++j] = '</td><td class="whatever1">';
-     r[++j] = sdonkey[key].value;
-     r[++j] = '</td><td class="whatever2">';
-     r[++j] = sdonkey[key].unit;
-     r[++j] = '</td></tr>';
- }
+for (var record=0, quantity=data.data.length; record<quantity; record++){
+	console.log("Sleep record = " + record + " and quantity = "+quantity);
 
- $('#sleepdataTable').html(r.join(''));
+			$('#sleepdata').append(data.data[record].source.type);
+			var newtablehtml = "<table id='sleeptable"+record+"'><tr><th>Type</th><th>Value</th><th>Unit</th></tr></table>";
+			
+			$('#sleepdata').append(newtablehtml);
+			//Begin Table RowCreation			
+			var r = new Array(), j = -1;				
+			console.log("sleep metrics = "+ data.data[record].metrics.length);	
+			for (var key=0, size=data.data[record].metrics.length; key<size; key++){
+				r[++j] ='<tr><td>';
+				r[++j] = data.data[record].metrics[key].type;
+				r[++j] = '</td><td>';
+				r[++j] = data.data[record].metrics[key].value;
+				r[++j] = '</td><td>';
+				r[++j] = data.data[record].metrics[key].unit;
+				r[++j] = '</td></tr>';
+			}
 
-//End Table Creation
+			$('#sleeptable'+record).html(r.join(''));
 
 
-				}
-				
+			//End Table Creation
+
+	}
+			}
 		}, "json" );
 
+}
 
+
+function GetNutritionyData() {
 	//Get Nutrition Data
 	var validicnutritionrequest = validicrequestbase + validicrequestuser + "/nutrition" + validicrequestcreds + validicrequestdate;
 
 		$.get( validicnutritionrequest, function( data ) {
 
-				console.log("Nutrition");
-				console.log(data.data.length);
-				if (data.data["0"]) {
-					var nutritionsource = data.data["0"].source.type;
-					//document.getElementById("nutritiondata").appendChild(nutritionsource);
-					$('#nutritiondata').append(nutritionsource);
-					$('#nutritiondata').append("<table><tr><td>Hi</td><td>Hello</td></tr></table>");
-					ndonkey = data.data["0"].metrics;			
-					function getValuebyType(type) {
-					  return ndonkey.filter(
-					      function(ndonkey){ return ndonkey.type == type }
-					  );
-					}
-
-					//var objSleep = getValuebyType('time_to_fall_asleep');
-					//var objREM = getValuebyType('rem_sleep');
-					//var objDeep = getValuebyType('deep_sleep');
-					//var objLight = getValuebyType('light_sleep');
-					//var objSleepDuration = getValuebyType('asleep_duration'); 
-					
-
+				console.log("Starting Nutrition");
+				
+				var x = new Array(), y = -1;					
+				for (var record=0, quantity=data.data.length; record<quantity; record++){
+					if (data.data[record]) {
 						
-						//document.getElementById("article5text").innerHTML = "It took you " + myTimeToSleep + " minutes to fall asleep";
-					}
+						ndonkey = data.data[record].metrics;
+						console.log("Nutrition record " + record + " has " + ndonkey.length + " metrics");
+	
+						function getValuebyType(type) {
+						return ndonkey.filter(
+							function(ndonkey){ return ndonkey.type == type }
+						);
+						}
 
-//Begin Nutrition Table Creation			
-var r = new Array(), j = -1;
- 								
- r[++j] ='<tr><th>Type</th><th>Value</th><th>Unit</th></tr>';
- for (var key=0, size=ndonkey.length; key<size; key++){
-     r[++j] ='<tr><td>';
-     r[++j] = ndonkey[key].type;
-     r[++j] = '</td><td class="whatever1">';
-     r[++j] = ndonkey[key].value;
-     r[++j] = '</td><td class="whatever2">';
-     r[++j] = ndonkey[key].unit;
-     r[++j] = '</td></tr>';
- }
+						$('#nutritiondata').append(data.data[record].source.type);
+						var newtablehtml = "<table id='nutritiontable"+record+"'><tr><th>Type</th><th>Value</th><th>Unit</th></tr></table>";
+						
+						$('#nutritiondata').append(newtablehtml);
+						//Begin Nutrition Table RowCreation			
+						var r = new Array(), j = -1;					
+						for (var key=0, size=ndonkey.length; key<size; key++){
+							r[++j] ='<tr><td>';
+							r[++j] = data.data[record].metrics[key].type;
+							r[++j] = '</td><td>';
+							r[++j] = data.data[record].metrics[key].value;
+							r[++j] = '</td><td>';
+							r[++j] = data.data[record].metrics[key].unit;
+							r[++j] = '</td></tr>';
+						}
 
- $('#nutritiondataTable').html(r.join(''));
+						$('#nutritiontable'+record).html(r.join(''));
 
-//End Table Creation
+						//End Table Creation
+
+
+						}
+
+				} //iterating through records
 				
 		}, "json" );
 
 
+}
 
-
-
-
+GetSummaryData();
+GetWeightData();
+GetNutritionyData();
+GetSleepData();
+GetWorkoutsData();
 
 //set page links
 function detailnavigate(type) {
