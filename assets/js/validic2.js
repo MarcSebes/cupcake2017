@@ -7,6 +7,7 @@
 	var myDistance = "";
 	var myCalories = "";
 	var myWeight = "";
+	var myWeightUnit = "";
 
     //Determine the Date 
     var date_today = new Date();
@@ -151,9 +152,13 @@ for (var record=0, quantity=data.data.length; record<quantity; record++){
 function GetWeightData() {
 	//Get Weight Data
 	var validicweightrequest = validicrequestbase + validicrequestuser + "/measurements" + validicrequestcreds + validicrequestdate;
-
+	
 		$.get( validicweightrequest, function( data ) {
 				console.log(data);
+				console.log ("research start")
+
+				console.log ("research end")
+				/*
 				if (data.data["0"]) {
 					weightdonkey = data.data["0"].metrics;
 				
@@ -174,7 +179,7 @@ function GetWeightData() {
 							myBodyFat = Math.round(objBodyFat[0].value * 10)/10;
 							document.getElementById("article3content").innerHTML = "You are " + myBodyFat + "% Phat!";
 					}
-						
+					*/	
 						
 for (var record=0, quantity=data.data.length; record<quantity; record++){
 	console.log("Weight record = " + record + " and quantity = "+quantity);
@@ -187,6 +192,9 @@ for (var record=0, quantity=data.data.length; record<quantity; record++){
 			var r = new Array(), j = -1;				
 			console.log("measurements metrics = "+ data.data[record].metrics.length);	
 			for (var key=0, size=data.data[record].metrics.length; key<size; key++){
+
+
+
 				r[++j] ='<tr><td>';
 				r[++j] = data.data[record].metrics[key].type;
 				r[++j] = '</td><td>';
@@ -202,7 +210,7 @@ for (var record=0, quantity=data.data.length; record<quantity; record++){
 			//End Table Creation
 
 	}
-			}
+
 		}, "json" );
 }
 
@@ -369,7 +377,7 @@ function GetNutritionyData() {
 
 				console.log("Starting Nutrition");
 				
-				var x = new Array(), y = -1;					
+									
 				for (var record=0, quantity=data.data.length; record<quantity; record++){
 					if (data.data[record]) {
 						
