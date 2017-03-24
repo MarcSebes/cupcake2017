@@ -95,7 +95,16 @@ function GetSummaryData() {
 						var objenergy = getValuebyType('energy_burned');
 
 						mySteps = objSteps[0].value;
-						myActiveTime = Math.round(objActiveTime[0].value / 60);
+						if(objActiveTime[0]) {
+							switch(objActiveTime[0].unit) {
+								case "s":
+								myActiveTime = Math.round(objActiveTime[0].value / 60);
+								break
+							}
+						}
+						
+						
+						
 						myDistance = objDistance[0].value;
 						switch (objDistance[0].unit) {
 							case "km":
@@ -106,7 +115,13 @@ function GetSummaryData() {
 								break;
 						}
 					
-						myCaloriesBurned = Math.round(objBMR[0].value + objenergy[0].value);
+						if(objBMR[0] && objenergy[0]) {
+							myCaloriesBurned = Math.round(objBMR[0].value + objenergy[0].value);
+						}
+						else {
+							myCaloriesBurned = 0;
+						};
+						
 
 						//write results
 						document.getElementById("article1text").innerHTML = mySteps + " steps";
