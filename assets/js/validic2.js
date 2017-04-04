@@ -244,6 +244,18 @@ function GetWorkoutsData() {
 					      function(wdonkey){ return wdonkey.type == type }
 					  );
 					}
+
+					// Determine Workout Duration
+					// subtract start from end time to get duration.
+					// convert from ms to minutes
+
+					var workout_start_time = new Date(data.data["0"].start_time);
+					var workout_end_time = new Date(data.data["0"].end_time);
+					var workout_duration = Math.floor((workout_end_time-workout_start_time) / 60e3);
+					document.getElementById("article4text").innerHTML = workout_duration + " Minutes of Exercise";
+					
+
+
 /*
 					var objDuration = getValuebyType('active_duration');
 					if(objDuration[0]) {
@@ -261,7 +273,7 @@ function GetWorkoutsData() {
 						}
 						myDuration = Math.round(myDuration*10)/10
 						console.log(myDuration);
-						document.getElementById("article4text").innerHTML = myDuration + " Minutes";
+						
 						
 					}
 */
