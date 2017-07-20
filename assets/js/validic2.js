@@ -23,6 +23,7 @@
 	//Get the Account from the Query String Parameter
 	var account = getQueryString('account');
 	var validicrequestcreds = "";
+	var validicorganizationid
 	switch(account) {
     case "engineering":
 	case "eng":
@@ -32,10 +33,11 @@
 		var parametertoken = getQueryString('token');
         validicrequestcreds = "?token=" + parametertoken;
         break;
-    case "challenge":
+    case "devpreview":
 	default:
-		//assume Validic Challenge app
-       validicrequestcreds = "?token=abeed1ffe4f14f3fb7d9bcb4928c72b4";
+		//assume Dev Preview 
+       validicrequestcreds = "?token=e8db5d7a069743509c613254e59235cf";
+       validicorganizationid = "5953eb328a5da50001379e4e";
 }
  
 
@@ -62,7 +64,7 @@
 	document.getElementById("subheading").innerHTML = user;
 	
     //setup query 
-    	var validicrequestbase = "https://api2.stage.validic.com/users/";
+    	var validicrequestbase = "https://api.v2.validic.com/organizations/" + validicorganizationid +"/users/";
     	var validicrequestuser = user;
   		var validicrequestdate = "&date=" + querydate;
 
