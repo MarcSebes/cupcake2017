@@ -1,0 +1,35 @@
+<html>
+<body>
+<div id="result"></div>
+<script>
+if (typeof(EventSource) !== 'undefined') {
+    console.info('Starting connection...');
+    var source = new EventSource('https://streams.v2.validic.com/streams/596ce8390b11e70001a0b2c6/connect?token=7e59eec06bcd452ea71aae18d2a6f662');
+    source.addEventListener('open', function(e) {
+        console.info('Connection was opened.');
+    }, false);
+    source.addEventListener('error', function(e) {
+        var txt;
+        switch (event.target.readyState) {
+            // if reconnecting
+            case EventSource.CONNECTING:
+                txt = 'Reconnecting...';
+                break;
+            // if error was fatal
+            case EventSource.CLOSED:
+                txt = 'Connection failed. Will not retry.';
+                break;
+        }
+        console.error('Connection error: ' + txt);
+    }, false);
+    source.addEventListener('message', function(e) {
+        document.getElementById('result').innerHTML += e.data + '<br>';
+        console.log(e.data);
+    }, false);
+} else {
+    alert('Your browser does not support Server-sent events! Please upgrade it!');
+    console.error('Connection aborted');
+}
+</script>
+</body>
+</html>
