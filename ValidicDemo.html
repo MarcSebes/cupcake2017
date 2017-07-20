@@ -25,26 +25,67 @@ function SpawnWindow() {
 	</div>
 	<div id="main">
 
-<p>
-	<label for="uid" class="mainlabel" style="width: 299px;">Enter your Unique ID for a user</label><br/>
-	<input id="uid" name="uid" maxlength="255" type="text" class="inputfield" style="width: 300px;"><br/>
-	<a id="btnProvision" class="vblue-btn" href="#" onClick="window.open('https://api.v2.validic.com/organizations/5953eb328a5da50001379e4e/users/BHAG?token=7e59eec06bcd452ea71aae18d2a6f662','User Created','resizable,width=1024,height=800'); return false;">1. Create that User in Validic</a
-	
-</p>
+		<p>
+			<label for="uid" class="mainlabel" style="width: 299px;">Enter your Unique ID for a user</label><br/>
+			<input id="uid" name="uid" maxlength="255" type="text" class="inputfield" style="width: 300px;"><br/>
+			<a id="btnProvision" class="vblue-btn" href="#" onClick="window.open('https://api.v2.validic.com/organizations/5953eb328a5da50001379e4e/users/BHAG?token=7e59eec06bcd452ea71aae18d2a6f662','User Created','resizable,width=1024,height=800'); return false;">1. Create that User in Validic</a
+			
+		</p>
 
-<p>
-	<a id="btnMarketplace" class="vblue-btn" href="#" OnClick="window.open('https://marketplace.v2.validic.com/?token=dcced2a69054c543f71d65bcaa32048ded245c8495babee4402511879181b162','Validic Standard Marketplace','resizable,width=1024,height=800'); return false;">2. Ask that User to Share Data</a>
-</p>
-		
-<p>
-	<a id="btnConnectStream" class="vblue-btn" href="#" OnClick="window.open('https://streams.v2.validic.com/streams/596ce8390b11e70001a0b2c6/connect?token=7e59eec06bcd452ea71aae18d2a6f662','Validic Streaming API','resizable,width=1024,height=800'); return false;" >3. Collect Data</a>
-</p>
-
-
+		<p>
+			<a id="btnMarketplace" class="vblue-btn" href="#" OnClick="window.open('https://marketplace.v2.validic.com/?token=dcced2a69054c543f71d65bcaa32048ded245c8495babee4402511879181b162','Validic Standard Marketplace','resizable,width=1024,height=800'); return false;">2. Ask that User to Share Data</a>
+		</p>
+				
+		<p>
+			<a id="btnConnectStream" class="vblue-btn" href="#" OnClick="window.open('https://streams.v2.validic.com/streams/596ce8390b11e70001a0b2c6/connect?token=7e59eec06bcd452ea71aae18d2a6f662','Validic Streaming API','resizable,width=1024,height=800'); return false;" >3. Collect Data</a>
+		</p>
 
 
 
 	</div>
+
+	<div id="tablecontainer">
+<table>
+	<tr>
+		<th>Task</th>
+		<th>API call</th>
+	</tr>
+	<tr>
+		<td>
+			View User Details
+		</td><td>
+			<a href="https://api.v2.validic.com/organizations/5953eb328a5da50001379e4e/users/BHAG?token=7e59eec06bcd452ea71aae18d2a6f662">https://api.v2.validic.com/organizations/5953eb328a5da50001379e4e/users/[Your-Unique-UserID]?token=ABC123</a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Show User Marketplace
+		</td><td>
+			<a href="https://marketplace.v2.validic.com/?token=dcced2a69054c543f71d65bcaa32048ded245c8495babee4402511879181b162">https://marketplace.v2.validic.com/?token=ABC123</a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Connect to a Stream of Data
+		</td><td>
+			<a href="https://streams.v2.validic.com/streams/596ce8390b11e70001a0b2c6/connect?token=7e59eec06bcd452ea71aae18d2a6f662">https://streams.v2.validic.com/streams/596ce8390b11e70001a0b2c6/connect?token=ABC123</a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Get User's Measurements Data
+		</td><td>
+			<a href="https://api.v2.validic.com/organizations/5953eb328a5da50001379e4e/users/BHAG/measurements/?token=e8db5d7a069743509c613254e59235cf">https://api.v2.validic.com/organizations/5953eb328a5da50001379e4e/users/BHAG/Measurements/?token=ABC123</a>
+		</td>
+	</tr>
+</table>
+</div>
+
+
+
+
+
+
 </div>
 </body>
 </html>
