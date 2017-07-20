@@ -175,7 +175,7 @@ function GetWeightData() {
 				console.log ("research start")
 
 				console.log ("research end")
-				/*
+
 				if (data.data["0"]) {
 					weightdonkey = data.data["0"].metrics;
 				
@@ -196,7 +196,7 @@ function GetWeightData() {
 							myBodyFat = Math.round(objBodyFat[0].value * 10)/10;
 							document.getElementById("article3content").innerHTML = "You are " + myBodyFat + "% Phat!";
 					}
-					*/	
+					}
 						
 for (var record=0, quantity=data.data.length; record<quantity; record++){
 	console.log("Weight record = " + record + " and quantity = "+quantity);
@@ -258,11 +258,9 @@ function GetWorkoutsData() {
 					
 
 
-/*
+
 					var objDuration = getValuebyType('active_duration');
 					if(objDuration[0]) {
-						
-						console.log(objDuration);
 						
 						myDuration = objDuration[0].value;
 						switch (objDuration[0].unit) {
@@ -275,10 +273,11 @@ function GetWorkoutsData() {
 						}
 						myDuration = Math.round(myDuration*10)/10
 						console.log(myDuration);
+						document.getElementById("article2text").innerHTML = myDuration + " Active Minutes Today";
 						
 						
 					}
-*/
+
 for (var record=0, quantity=data.data.length; record<quantity; record++){
 	console.log("record = " + record + " and quantity = "+quantity);
 
@@ -405,13 +404,35 @@ function GetNutritionyData() {
 		$.get( validicnutritionrequest, function( data ) {
 
 				console.log("Starting Nutrition");
+				if (data.data["0"]) {
+					nutritiondonkey = data.data["0"].metrics;
 				
+					function getValuebyType(type) {
+					  return nutritiondonkey.filter(
+					      function(nutritiondonkey){ return nutritiondonkey.type == type }
+					  );
+					}
+
+					var objCalories = getValuebyType('energy_consumed');
+					var objProtein = getValuebyType('protein');
+					var objFat = getValuebyType('fat');
+
+					if (objCalories[0]) {
+							document.getElementById("article6text").innerHTML = objCalories[0].value + " Calores Eaten";
+					}
+					if (objFat[0]) {
+							document.getElementById("article6content").innerHTML = objFat[0].value + "g Fat and " + objProtein[0].value + "g Protein";
+					}
+					}
+
 									
 				for (var record=0, quantity=data.data.length; record<quantity; record++){
 					if (data.data[record]) {
 						
 						ndonkey = data.data[record].metrics;
 						console.log("Nutrition record " + record + " has " + ndonkey.length + " metrics");
+
+
 	
 						function getValuebyType(type) {
 						return ndonkey.filter(
@@ -441,6 +462,7 @@ function GetNutritionyData() {
 
 
 						}
+
 
 				} //iterating through records
 				
