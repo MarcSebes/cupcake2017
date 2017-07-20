@@ -1,0 +1,51 @@
+<html>
+ <head>
+  <title>Validic API Demo</title>
+  <link rel="stylesheet" type="text/css" href="demo.css" />
+  <script>
+function SpawnWindow() {
+	var viewportwidth = document.documentElement.clientWidth;
+	var viewportheight = document.documentElement.clientHeight;
+	window.resizeBy(-300,0);
+	window.moveTo(0,0);
+
+	window.open("http://google.com",
+	            "mywindow",
+	            "width=300,left="+(viewportwidth-300)+",top=0");
+}
+  </script>
+ </head>
+ 
+<body>
+<div id="container">
+	<div id="header">
+		<div id="logocontainer">
+			<img src="https://validic.com/wp-content/themes/Divi-child/images/validic.svg" alt="Validic" id="logo" height="56"/>
+		</div>
+	</div>
+	<div id="main">
+
+<p>
+	<label for="uid" class="mainlabel" style="width: 299px;">Enter your Unique ID for a user</label><br/>
+	<input id="uid" name="uid" maxlength="255" type="text" class="inputfield" style="width: 300px;"><br/>
+	<a id="btnProvision" class="vblue-btn" href="#" onClick="window.open('https://api.v2.validic.com/organizations/5953eb328a5da50001379e4e/users/BHAG?token=7e59eec06bcd452ea71aae18d2a6f662','User Created','resizable,width=1024,height=800'); return false;">1. Create that User in Validic</a
+	
+</p>
+
+<p>
+	<a id="btnMarketplace" class="vblue-btn" href="#" OnClick="window.open('https://marketplace.v2.validic.com/?token=dcced2a69054c543f71d65bcaa32048ded245c8495babee4402511879181b162','Validic Standard Marketplace','resizable,width=1024,height=800'); return false;">2. Ask that User to Share Data</a>
+</p>
+		
+<p>
+	<a id="btnConnectStream" class="vblue-btn" href="#" OnClick="window.open('https://streams.v2.validic.com/streams/596ce8390b11e70001a0b2c6/connect?token=7e59eec06bcd452ea71aae18d2a6f662','Validic Streaming API','resizable,width=1024,height=800'); return false;" >3. Collect Data</a>
+</p>
+
+
+
+
+
+	</div>
+</div>
+</body>
+</html>
+

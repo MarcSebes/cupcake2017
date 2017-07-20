@@ -1,0 +1,60 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #fff;
+    font-family: "proxima-nova", sans-serif;
+}
+#container {
+	padding:30px;
+}
+
+#header {
+padding-bottom:30px;
+}
+
+#main {
+	
+}
+
+a {
+	text-decoration: none;
+}
+
+.vblue-btn {
+    background: rgba(3,62,104,.8);
+	height: 49px;
+    font-size: 18px;
+    line-height: 49px;
+    padding: 0 30px;
+    color: #FFF;
+    display: inline-block;
+    margin: 0 50px 0 0;
+    width:250px;
+}
+
+label {
+	width: 250px;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: normal !important;
+    font-family: "proxima-nova",sans-serif;
+
+}
+
+input {
+    border: 1px solid #8C0005;
+    border-radius: 0;
+    box-shadow: none;
+    height: 25px;
+    font-size: 18px;
+    width: 250px;
+    margin-bottom:10px;
+    color: #2f2f2f;
+    text-indent: 10px;
+    clear: none;
+    display: inline-block;
+    -webkit-appearance: none;
+    background-color: #fff;
+    line-height: 1.5em;
+
+}
