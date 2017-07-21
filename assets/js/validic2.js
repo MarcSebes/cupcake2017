@@ -36,7 +36,7 @@
         validicorganizationid = paramterorgid;
         break;
     case "devpreview":
-    case "dev"
+    case "dev":
 	default:
 		//assume Dev Preview 
        validicrequestcreds = "?token=e8db5d7a069743509c613254e59235cf";
@@ -484,4 +484,7 @@ GetWorkoutsData();
 function detailnavigate(type) {
 	window.location.href = "details.html?type="+type+"&user="+user+validicrequestdate;
 }
+
+
+
 //end file
