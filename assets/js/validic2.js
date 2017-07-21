@@ -25,15 +25,18 @@
 	var validicrequestcreds = "";
 	var validicorganizationid
 	switch(account) {
-    case "engineering":
-	case "eng":
-        validicrequestcreds = "?token=1533597acc3945fea2256569db36bc03";
+    case "demo":
+        validicrequestcreds = "?token=e8db5d7a069743509c613254e59235cf";
+        validicorganizationid = "5953eb328a5da50001379e4e";
         break;
     case "other":
 		var parametertoken = getQueryString('token');
+        var parameterorgid = getQueryString('orgid');
         validicrequestcreds = "?token=" + parametertoken;
+        validicorganizationid = paramterorgid;
         break;
     case "devpreview":
+    case "dev"
 	default:
 		//assume Dev Preview 
        validicrequestcreds = "?token=e8db5d7a069743509c613254e59235cf";
