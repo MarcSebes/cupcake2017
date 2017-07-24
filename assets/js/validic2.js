@@ -69,7 +69,7 @@
     //setup query 
     	var validicrequestbase = "https://api.v2.validic.com/organizations/" + validicorganizationid +"/users/";
     	var validicrequestuser = user;
-  		var validicrequestdate = "&date=" + querydate;
+  		var validicrequestdate = "&start_date=" + querydate;
 
 
 
