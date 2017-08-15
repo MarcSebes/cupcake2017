@@ -81,8 +81,9 @@ function GetSummaryData() {
 
 	//Get Summary Data
 		$.get( validicsummaryrequest, function( data ) {
-		console.log("summary data retrieved with " + data.data.length+ " records");		
-		
+		console.log("summary data retrieved with " + data.data.length+ " records");	
+
+
 				if(data.data[0]){
 					donkey = data.data[0].metrics;
 					console.log(donkey.length);
@@ -99,7 +100,10 @@ function GetSummaryData() {
 						var objBMR = getValuebyType('basal_energy_burned');
 						var objenergy = getValuebyType('energy_burned');
 
-						mySteps = objSteps[0].value;
+						if(objSteps[0]) {
+							mySteps = objSteps[0].value;
+						}
+
 						if(objActiveTime[0]) {
 							switch(objActiveTime[0].unit) {
 								case "s":
@@ -109,7 +113,7 @@ function GetSummaryData() {
 						}
 						
 						
-						
+						if(objDistance[0]) {
 						myDistance = objDistance[0].value;
 						switch (objDistance[0].unit) {
 							case "km":
@@ -119,6 +123,7 @@ function GetSummaryData() {
 								myDistance=Math.round(myDistance*0.000621371*10)/10;
 								break;
 						}
+					}
 					
 						if(objBMR[0] && objenergy[0]) {
 							myCaloriesBurned = Math.round(objBMR[0].value + objenergy[0].value);
